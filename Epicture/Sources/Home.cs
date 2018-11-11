@@ -55,6 +55,7 @@ namespace Epicture
         private async void LoadUser()
         {
             currentUser = LoginActivity.GetImgurClient();
+            return;
             var endpoint = new AccountEndpoint(currentUser);
             IAccountSettings submissions = await endpoint.GetAccountSettingsAsync();
             //Bind user infos
@@ -143,8 +144,8 @@ namespace Epicture
             {
                 Intent intent = new Intent(this, typeof(LoginActivity));
                 StartActivity(intent);
+                Finish();
             }
-            Finish();
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             drawer.CloseDrawer(GravityCompat.Start);
             return true;

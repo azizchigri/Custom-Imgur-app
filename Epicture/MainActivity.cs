@@ -13,6 +13,7 @@ namespace Epicture
         {
             base.OnCreate(savedInstanceState);
             StartActivity(typeof(LoginActivity));
+            Finish();
         }
     }
 }
