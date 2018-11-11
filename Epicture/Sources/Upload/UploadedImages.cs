@@ -96,18 +96,12 @@ namespace Epicture.Upload
                 Intent intent = new Intent(this, typeof(FavoriteActivity));
                 StartActivity(intent);
             }
-            else if (id == Resource.Id.nav_manage)
+            else if (id == Resource.Id.nav_disconnect)
             {
-
+                Intent intent = new Intent(this, typeof(LoginActivity));
+                StartActivity(intent);
             }
-            else if (id == Resource.Id.nav_share)
-            {
-
-            }
-            else if (id == Resource.Id.nav_send)
-            {
-
-            }
+            
             Finish();
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             drawer.CloseDrawer(GravityCompat.Start);
@@ -119,9 +113,16 @@ namespace Epicture.Upload
             Toast.MakeText(this, "Tu viens de cliquer", ToastLength.Short).Show();
         }
 
-        private void LoadUser()
+        private async void LoadUser()
         {
             currentUser = LoginActivity.GetImgurClient();
+            var endpoint = new AccountEndpoint(currentUser);
+            IAccountSettings submissions = await endpoint.GetAccountSettingsAsync();
+            //Bind user infos
+            TextView username = FindViewById<TextView>(Resource.Id.userName);
+            username.Text = submissions.AccountUrl;
+            TextView usermail = FindViewById<TextView>(Resource.Id.userMail);
+            usermail.Text = submissions.Email;
         }
     }
 }

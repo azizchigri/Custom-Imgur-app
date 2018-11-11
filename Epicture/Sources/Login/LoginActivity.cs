@@ -6,6 +6,7 @@ using Xamarin.Auth;
 using Imgur.API.Models.Impl;
 using Imgur.API.Authentication.Impl;
 using System.Linq;
+using Android.Content;
 
 namespace Epicture.Login
 {
@@ -86,5 +87,6 @@ namespace Epicture.Login
     internal class AuthenticationState
     {
         public static OAuth2Authenticator Authenticator;
+
     }
 }

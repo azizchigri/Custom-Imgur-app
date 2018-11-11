@@ -91,17 +91,10 @@ namespace Epicture.Favorites
             {
                 return false;
             }
-            else if (id == Resource.Id.nav_manage)
+            else if (id == Resource.Id.nav_disconnect)
             {
-
-            }
-            else if (id == Resource.Id.nav_share)
-            {
-
-            }
-            else if (id == Resource.Id.nav_send)
-            {
-
+                Intent intent = new Intent(this, typeof(LoginActivity));
+                StartActivity(intent);
             }
             Finish();
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
@@ -114,9 +107,16 @@ namespace Epicture.Favorites
             Toast.MakeText(this, "Tu viens de cliquer", ToastLength.Short).Show();
         }
 
-        private void LoadUser()
+        private async void LoadUser()
         {
             currentUser = LoginActivity.GetImgurClient();
+            var endpoint = new AccountEndpoint(currentUser);
+            IAccountSettings submissions = await endpoint.GetAccountSettingsAsync();
+            //Bind user infos
+            TextView username = FindViewById<TextView>(Resource.Id.userName);
+            username.Text = submissions.AccountUrl;
+            TextView usermail = FindViewById<TextView>(Resource.Id.userMail);
+            usermail.Text = submissions.Email;
         }
     }
 }

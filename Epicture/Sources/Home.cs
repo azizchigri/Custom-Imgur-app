@@ -31,7 +31,7 @@ namespace Epicture
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            currentUser = LoginActivity.GetImgurClient();
+            LoadUser();
             SetContentView(Resource.Layout.activity_main);
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
@@ -50,6 +50,18 @@ namespace Epicture
             _lv = FindViewById<ListView>(Resource.Id.lvGallery);
 
             GetGalleryImagesAsync();
+        }
+
+        private async void LoadUser()
+        {
+            currentUser = LoginActivity.GetImgurClient();
+            var endpoint = new AccountEndpoint(currentUser);
+            IAccountSettings submissions = await endpoint.GetAccountSettingsAsync();
+            //Bind user infos
+            TextView username = FindViewById<TextView>(Resource.Id.userName);
+            username.Text = submissions.AccountUrl;
+            TextView usermail = FindViewById<TextView>(Resource.Id.userMail);
+            usermail.Text = submissions.Email;
         }
 
         private async Task GetGalleryImagesAsync()
@@ -127,17 +139,10 @@ namespace Epicture
                 Intent intent = new Intent(this, typeof(FavoriteActivity));
                 StartActivity(intent);
             }
-            else if (id == Resource.Id.nav_manage)
+            else if (id == Resource.Id.nav_disconnect)
             {
-
-            }
-            else if (id == Resource.Id.nav_share)
-            {
-
-            }
-            else if (id == Resource.Id.nav_send)
-            {
-
+                Intent intent = new Intent(this, typeof(LoginActivity));
+                StartActivity(intent);
             }
             Finish();
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
