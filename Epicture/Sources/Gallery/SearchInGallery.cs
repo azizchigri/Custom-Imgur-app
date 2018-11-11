@@ -8,11 +8,19 @@ using System.Threading.Tasks;
 using Imgur.API.Authentication.Impl;
 using Imgur.API.Models;
 using Imgur.API.Endpoints.Impl;
+using Android.Support.V7.App;
+using Android.Support.Design.Widget;
+using Android.Views;
+using Android.Support.V4.Widget;
+using Android.Content;
+using Android.Support.V4.View;
+using Epicture.Upload;
+using System;
 
 namespace Epicture.Gallery
 {
-    [Activity(Label = "Gallery", Theme = "@style/AppTheme.NoActionBar", MainLauncher = false)]
-    public class SearchInGallery : Activity
+    [Activity(Label = "Search", Theme = "@style/AppTheme.NoActionBar", MainLauncher = false)]
+    public class SearchInGallery : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
     {
         private ImgurClient currentUser;
         private LvGalleryBinder _adapter;
@@ -22,14 +30,25 @@ namespace Epicture.Gallery
         {
             base.OnCreate(savedInstanceState);
             LoadUser();
-            //SetContentView(Resource.Layout.activity_gallery);
+            SetContentView(Resource.Layout.activity_search);
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
 
-            _lv = FindViewById<ListView>(Resource.Id.lvGallery);
-            //EditText filterText = FindViewById<EditText>(Resource.Id.galleryFilter);
-            Button searchButton = FindViewById<Button>(Resource.Id.buttonPanel);
+            DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, Resource.String.navigation_drawer_open, Resource.String.navigation_drawer_close);
+            drawer.AddDrawerListener(toggle);
+            toggle.SyncState();
+
+            NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
+            navigationView.SetNavigationItemSelectedListener(this);
+
+            _lv = FindViewById<ListView>(Resource.Id.lvSearched);
+
+            EditText filterText = FindViewById<EditText>(Resource.Id.searchFilter);
+            Button searchButton = FindViewById<Button>(Resource.Id.searchButton);
             searchButton.Click += (sender, e) =>
             {
-                //GetGalleryImagesAsync(filterText.Text);
+                GetGalleryImagesAsync(filterText.Text);
             };
         }
 
@@ -40,6 +59,46 @@ namespace Epicture.Gallery
             _adapter = new LvGalleryBinder(this, Resource.Layout.listview_model, images.ToList());
             _lv.Adapter = _adapter;
             _lv.ItemClick += lv_ItemClick;
+        }
+
+        public bool OnNavigationItemSelected(IMenuItem item)
+        {
+            int id = item.ItemId;
+
+            if (id == Resource.Id.nav_gallery)
+            {
+                Intent intent = new Intent(this, typeof(Home));
+                StartActivity(intent);
+            }
+            else if (id == Resource.Id.nav_uploaded)
+            {
+                Intent intent = new Intent(this, typeof(UploadedImages));
+                StartActivity(intent);
+            }
+            else if (id == Resource.Id.nav_search)
+            {
+                return false;
+            }
+            else if (id == Resource.Id.nav_slideshow)
+            {
+
+            }
+            else if (id == Resource.Id.nav_manage)
+            {
+
+            }
+            else if (id == Resource.Id.nav_share)
+            {
+
+            }
+            else if (id == Resource.Id.nav_send)
+            {
+
+            }
+            Finish();
+            DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
+            drawer.CloseDrawer(GravityCompat.Start);
+            return true;
         }
 
         private void lv_ItemClick(object sender, AdapterView.ItemClickEventArgs e)

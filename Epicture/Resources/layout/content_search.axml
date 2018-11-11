@@ -5,28 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_upload">
+    tools:showIn="@layout/app_bar_search">
 
+	<EditText
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:hint="Enter your query"
+		android:id="@+id/searchFilter" />
 	<Button
+		android:text="Search"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/pickButton"
-		android:text="Upload an image"/>
-	<TextView
-		android:text="Mes images uploadées"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:minWidth="25px"
-		android:minHeight="25px"
-		android:id="@+id/uploadText"
-		android:layout_below="@+id/pickButton"
-		android:layout_marginRight="0.0dp" />
+		android:id="@+id/searchButton" 
+		android:layout_below="@+id/searchFilter"/>
 	<ListView
 		android:minWidth="25px"
 		android:minHeight="25px"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_below="@+id/uploadText"
-		android:id="@+id/lvUpload" />
+		android:id="@+id/lvSearched" 
+		android:layout_below="@+id/searchButton"/>
 </RelativeLayout>
