@@ -11,6 +11,7 @@ using Android.Support.V4.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using Epicture.Favorites;
 using Epicture.Gallery;
 using Epicture.Login;
 using Epicture.Upload;
@@ -121,9 +122,10 @@ namespace Epicture
                 Intent intent = new Intent(this, typeof(SearchInGallery));
                 StartActivity(intent);
             }
-            else if (id == Resource.Id.nav_slideshow)
+            else if (id == Resource.Id.nav_favorites)
             {
-
+                Intent intent = new Intent(this, typeof(FavoriteActivity));
+                StartActivity(intent);
             }
             else if (id == Resource.Id.nav_manage)
             {

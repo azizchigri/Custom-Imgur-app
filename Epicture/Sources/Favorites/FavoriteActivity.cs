@@ -1,39 +1,43 @@
 ﻿using Android.App;
 using Android.OS;
+using Imgur.API.Authentication.Impl;
 using Epicture.Login;
 using Android.Widget;
 using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Imgur.API.Authentication.Impl;
-using Imgur.API.Models;
 using Imgur.API.Endpoints.Impl;
+using System.Collections.Generic;
+using Imgur.API.Models;
+using System.Threading.Tasks;
+using Epicture.Gallery;
 using Android.Support.V7.App;
 using Android.Support.Design.Widget;
 using Android.Views;
-using Android.Support.V4.Widget;
-using Android.Content;
-using Android.Support.V4.View;
 using Epicture.Upload;
+using Android.Content;
+using Android.Support.V4.Widget;
+using Android.Support.V4.View;
 using System;
-using Epicture.Favorites;
 
-namespace Epicture.Gallery
+namespace Epicture.Favorites
 {
-    [Activity(Label = "Search", Theme = "@style/AppTheme.NoActionBar", MainLauncher = false)]
-    public class SearchInGallery : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
+    [Activity(Label = "Favorites", Theme = "@style/AppTheme.NoActionBar", MainLauncher = false)]
+    public class FavoriteActivity : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
     {
         private ImgurClient currentUser;
         private LvGalleryBinder _adapter;
         private ListView _lv;
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
             LoadUser();
-            SetContentView(Resource.Layout.activity_search);
+            SetContentView(Resource.Layout.activity_favorite);
+
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
+
+            FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
+            fab.Click += FabOnClick;
 
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, Resource.String.navigation_drawer_open, Resource.String.navigation_drawer_close);
@@ -43,23 +47,25 @@ namespace Epicture.Gallery
             NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             navigationView.SetNavigationItemSelectedListener(this);
 
-            _lv = FindViewById<ListView>(Resource.Id.lvSearched);
-
-            EditText filterText = FindViewById<EditText>(Resource.Id.searchFilter);
-            Button searchButton = FindViewById<Button>(Resource.Id.searchButton);
-            searchButton.Click += (sender, e) =>
-            {
-                GetGalleryImagesAsync(filterText.Text);
-            };
+            _lv = FindViewById<ListView>(Resource.Id.lvFavorite);
+            GetFavoriteImagesAsync();
         }
 
-        private async Task GetGalleryImagesAsync(string query)
+        private async Task GetFavoriteImagesAsync()
         {
-            var endpoint = new GalleryEndpoint(currentUser);
-            IEnumerable<IGalleryItem> images = await endpoint.SearchGalleryAsync(query);
+            var endpoint = new AccountEndpoint(currentUser);
+            IEnumerable<IGalleryItem> images = await endpoint.GetAccountFavoritesAsync();
             _adapter = new LvGalleryBinder(this, Resource.Layout.listview_model, images.ToList());
             _lv.Adapter = _adapter;
             _lv.ItemClick += lv_ItemClick;
+        }
+
+        private void FabOnClick(object sender, EventArgs eventArgs)
+        {
+            GetFavoriteImagesAsync();
+            View view = (View)sender;
+            Snackbar.Make(view, "Updating favorites, please wait...", Snackbar.LengthLong)
+                .SetAction("Update", (View.IOnClickListener)null).Show();
         }
 
         public bool OnNavigationItemSelected(IMenuItem item)
@@ -78,12 +84,12 @@ namespace Epicture.Gallery
             }
             else if (id == Resource.Id.nav_search)
             {
-                return false;
+                Intent intent = new Intent(this, typeof(SearchInGallery));
+                StartActivity(intent);
             }
             else if (id == Resource.Id.nav_favorites)
             {
-                Intent intent = new Intent(this, typeof(FavoriteActivity));
-                StartActivity(intent);
+                return false;
             }
             else if (id == Resource.Id.nav_manage)
             {

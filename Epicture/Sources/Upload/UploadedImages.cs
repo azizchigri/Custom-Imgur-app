@@ -16,6 +16,7 @@ using Android.Views;
 using System;
 using Android.Support.V7.App;
 using Epicture.Gallery;
+using Epicture.Favorites;
 
 namespace Epicture.Upload
 {
@@ -90,9 +91,10 @@ namespace Epicture.Upload
                 Intent intent = new Intent(this, typeof(SearchInGallery));
                 StartActivity(intent);
             }
-            else if (id == Resource.Id.nav_slideshow)
+            else if (id == Resource.Id.nav_favorites)
             {
-
+                Intent intent = new Intent(this, typeof(FavoriteActivity));
+                StartActivity(intent);
             }
             else if (id == Resource.Id.nav_manage)
             {
