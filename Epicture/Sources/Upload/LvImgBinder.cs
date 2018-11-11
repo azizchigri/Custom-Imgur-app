@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Epicture.Utils;
 using Android.Content;
-using Android.Graphics;
 using Android.Views;
 using Android.Widget;
 using Imgur.API.Models;
-using Square.Picasso;
+using Com.Bumptech.Glide;
+using Com.Bumptech.Glide.Request;
 
 namespace Epicture.Upload
 {
@@ -40,7 +40,10 @@ namespace Epicture.Upload
                 NameTxt = { Text = images[position].Name ?? images[position].Title }
 
             };
-            Picasso.With(this.c).Load(images[position].Link).Into(holder.Img);
+            Glide
+                .With(this.c)
+                .Load(images[position].Link)
+                .Apply(RequestOptions.CircleCropTransform()).Into(holder.Img);
 
             convertView.SetBackgroundColor(Constants.lv_Background);
 

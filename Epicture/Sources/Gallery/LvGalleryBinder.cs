@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using Android.Content;
-using Android.Graphics;
 using Android.Views;
 using Android.Widget;
 using Epicture.Utils;
 using Imgur.API.Models;
-using Square.Picasso;
+using Com.Bumptech.Glide;
+using Com.Bumptech.Glide.Request;
+using Imgur.API.Models.Impl;
+using System;
 
 namespace Epicture.Gallery
 {
@@ -39,7 +41,6 @@ namespace Epicture.Gallery
                 holder = forImages(position, convertView);
             else if (typeof(IGalleryAlbum).IsAssignableFrom(images[position].GetType()))
                 holder = forAlbum(position, convertView);
-            // Have to add Animated img
             convertView.SetBackgroundColor(Constants.lv_Background);
 
             return convertView;
@@ -53,7 +54,10 @@ namespace Epicture.Gallery
                 NameTxt = { Text = img.Title }
 
             };
-            Picasso.With(this.c).Load(img.Link).Into(holder.Img);
+            Glide
+                .With(this.c)
+                .Load(img.Link)
+                .Apply(RequestOptions.CircleCropTransform()).Into(holder.Img);
             return holder;
         }
 
@@ -65,7 +69,10 @@ namespace Epicture.Gallery
                 NameTxt = { Text = img.Title }
 
             };
-            Picasso.With(this.c).Load(img.Link).Into(holder.Img);
+            Glide
+                .With(this.c)
+                .Load(img.Link)
+                .Apply(RequestOptions.CircleCropTransform()).Into(holder.Img);
             return holder;
         }
 
