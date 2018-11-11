@@ -60,6 +60,8 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sources\Constants\Constants.cs" />
+    <Compile Include="Sources\Gallery\SearchInGallery.cs" />
+    <Compile Include="Sources\Gallery\LvGalleryBinder.cs" />
     <Compile Include="Sources\Home.cs" />
     <Compile Include="Sources\Login\ImgurAuthInterceptor.cs" />
     <Compile Include="Sources\Login\LoginActivity.cs" />

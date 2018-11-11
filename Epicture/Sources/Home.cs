@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -7,16 +10,22 @@ using Android.Support.V4.View;
 using Android.Support.V4.Widget;
 using Android.Support.V7.App;
 using Android.Views;
+using Android.Widget;
+using Epicture.Gallery;
 using Epicture.Login;
 using Epicture.Upload;
 using Imgur.API.Authentication.Impl;
+using Imgur.API.Endpoints.Impl;
+using Imgur.API.Models;
 
 namespace Epicture
 {
-    [Activity(Label = "Home", Theme = "@style/AppTheme.NoActionBar", MainLauncher = false)]
+    [Activity(Label = "Gallery", Theme = "@style/AppTheme.NoActionBar", MainLauncher = false)]
     public class Home : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
     {
         private static ImgurClient currentUser = null;
+        private LvGalleryBinder _adapter;
+        private ListView _lv;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -36,6 +45,24 @@ namespace Epicture
 
             NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             navigationView.SetNavigationItemSelectedListener(this);
+
+            _lv = FindViewById<ListView>(Resource.Id.lvGallery);
+
+            GetGalleryImagesAsync();
+        }
+
+        private async Task GetGalleryImagesAsync()
+        {
+            var endpoint = new GalleryEndpoint(new ImgurClient(Constants.appId));
+            IEnumerable<IGalleryItem> images = await endpoint.GetGalleryAsync();
+            _adapter = new LvGalleryBinder(this, Resource.Layout.listview_model, images.ToList());
+            _lv.Adapter = _adapter;
+            _lv.ItemClick += lv_ItemClick;
+        }
+
+        private void lv_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            Toast.MakeText(this, "Tu viens de cliquer", ToastLength.Short).Show();
         }
 
         public override void OnBackPressed()
@@ -70,16 +97,17 @@ namespace Epicture
 
         private void FabOnClick(object sender, EventArgs eventArgs)
         {
+            GetGalleryImagesAsync();
             View view = (View)sender;
-            Snackbar.Make(view, "Replace with your own action", Snackbar.LengthLong)
-                .SetAction("Action", (View.IOnClickListener)null).Show();
+            Snackbar.Make(view, "Updating gallery, please wait...", Snackbar.LengthLong)
+                .SetAction("Update", (View.IOnClickListener)null).Show();
         }
 
         public bool OnNavigationItemSelected(IMenuItem item)
         {
             int id = item.ItemId;
 
-            if (id == Resource.Id.nav_home)
+            if (id == Resource.Id.nav_gallery)
             {
                 return false;
             }
@@ -88,9 +116,10 @@ namespace Epicture
                 Intent intent = new Intent(this, typeof(UploadedImages));
                 StartActivity(intent);
             }
-            else if (id == Resource.Id.nav_gallery)
+            else if (id == Resource.Id.nav_search)
             {
-                // Launch Gallery
+                Intent intent = new Intent(this, typeof(SearchInGallery));
+                StartActivity(intent);
             }
             else if (id == Resource.Id.nav_slideshow)
             {

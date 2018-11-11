@@ -15,6 +15,7 @@ using Android.Support.V4.View;
 using Android.Views;
 using System;
 using Android.Support.V7.App;
+using Epicture.Gallery;
 
 namespace Epicture.Upload
 {
@@ -75,7 +76,7 @@ namespace Epicture.Upload
         {
             int id = item.ItemId;
 
-            if (id == Resource.Id.nav_home)
+            if (id == Resource.Id.nav_gallery)
             {
                 Intent intent = new Intent(this, typeof(Home));
                 StartActivity(intent);
@@ -84,9 +85,10 @@ namespace Epicture.Upload
             {
                 return false;
             }
-            else if (id == Resource.Id.nav_gallery)
+            else if (id == Resource.Id.nav_search)
             {
-                // Launch Gallery
+                Intent intent = new Intent(this, typeof(SearchInGallery));
+                StartActivity(intent);
             }
             else if (id == Resource.Id.nav_slideshow)
             {

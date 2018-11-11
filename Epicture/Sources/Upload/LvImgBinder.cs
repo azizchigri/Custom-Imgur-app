@@ -42,7 +42,7 @@ namespace Epicture.Upload
             };
             Picasso.With(this.c).Load(images[position].Link).Into(holder.Img);
 
-            convertView.SetBackgroundColor(Color.White);
+            convertView.SetBackgroundColor(Constants.lv_Background);
 
             return convertView;
         }
