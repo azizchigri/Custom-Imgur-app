@@ -98,6 +98,7 @@ namespace Epicture.Upload
             }
             else if (id == Resource.Id.nav_disconnect)
             {
+                LoginActivity.Disconnect();
                 Intent intent = new Intent(this, typeof(LoginActivity));
                 StartActivity(intent);
                 Finish();

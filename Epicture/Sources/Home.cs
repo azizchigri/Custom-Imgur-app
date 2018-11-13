@@ -142,7 +142,9 @@ namespace Epicture
             }
             else if (id == Resource.Id.nav_disconnect)
             {
+                LoginActivity.Disconnect();
                 Intent intent = new Intent(this, typeof(LoginActivity));
+                intent.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
                 StartActivity(intent);
                 Finish();
             }

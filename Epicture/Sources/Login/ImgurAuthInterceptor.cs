@@ -25,7 +25,6 @@ namespace Epicture.Login
             // Load redirectUrl page
             AuthenticationState.Authenticator.OnPageLoading(uri);
 
-            StartActivity(typeof(Home));
             Finish();
         }
     }

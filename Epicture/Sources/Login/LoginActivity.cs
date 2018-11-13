@@ -14,24 +14,21 @@ namespace Epicture.Login
     public class LoginActivity : Activity
     {
         private static Xamarin.Auth.Account currentUser = null;
+        private static Application app = null;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.activity_login);
-
-            Button connectButton = FindViewById<Button>(Resource.Id.connectButton);
-            connectButton.Click += (sender, e) =>
+            CustomTabsConfiguration.CustomTabsClosingMessage = null;
+            app = Application;
+            currentUser = AccountStore.Create(Application.ApplicationContext, Constants.appPwd).FindAccountsForService(Constants.appName).FirstOrDefault();
+            if (currentUser == null)
+                ConnectWithOAuth2(bundle);
+            else
             {
-                currentUser = AccountStore.Create(Application.ApplicationContext, Constants.appPwd).FindAccountsForService(Constants.appName).FirstOrDefault();
-                if (currentUser == null)
-                    ConnectWithOAuth2(bundle);
-                else
-                {
-                    StartActivity(typeof(Home));
-                    Finish();
-                }
-            };
+                StartActivity(typeof(Home));
+                Finish();
+            }
         }
 
         private void ConnectWithOAuth2(Bundle bundle)
@@ -56,7 +53,7 @@ namespace Epicture.Login
             StartActivity(uiObj);
         }
 
-        async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
+        void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
         {
             if (AuthenticationState.Authenticator != null)
             {
@@ -81,6 +78,14 @@ namespace Epicture.Login
                                         account.Properties["account_username"], int.Parse(account.Properties["expires_in"]));
             var client = new ImgurClient(Constants.appId, Constants.appSecret, token);
             return client;
+        }
+
+        public static void Disconnect()
+        {
+            currentUser = null;
+            var accounts = AccountStore.Create(app.ApplicationContext, Constants.appPwd).FindAccountsForService(Constants.appName).ToList();
+            accounts.ForEach(account => AccountStore.Create(app.ApplicationContext, Constants.appPwd).Delete(account, Constants.appName));
+            app = null;
         }
     }
 
