@@ -146,7 +146,7 @@ namespace Epicture
                 Intent intent = new Intent(this, typeof(LoginActivity));
                 intent.SetFlags(ActivityFlags.ClearTop | ActivityFlags.SingleTop);
                 StartActivity(intent);
-                Finish();
+                FinishAffinity();
             }
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             drawer.CloseDrawer(GravityCompat.Start);

@@ -90,7 +90,7 @@ namespace Epicture.Gallery
                 LoginActivity.Disconnect();
                 Intent intent = new Intent(this, typeof(LoginActivity));
                 StartActivity(intent);
-                Finish();
+                FinishAffinity();
             }
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             drawer.CloseDrawer(GravityCompat.Start);
