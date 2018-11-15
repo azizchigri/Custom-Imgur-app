@@ -17,6 +17,7 @@ using System;
 using Android.Support.V7.App;
 using Epicture.Gallery;
 using Epicture.Favorites;
+using System.Threading;
 
 namespace Epicture.Upload
 {
@@ -30,7 +31,7 @@ namespace Epicture.Upload
         {
             base.OnCreate(savedInstanceState);
 
-            LoadUser();
+            ThreadPool.QueueUserWorkItem(o => LoadUser());
             SetContentView(Resource.Layout.activity_upload);
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
@@ -52,22 +53,24 @@ namespace Epicture.Upload
             {
                 StartActivity(typeof(UploadActivity));
             };
-
-            GetImagesAsync();
+            ThreadPool.QueueUserWorkItem(o => GetImagesAsync());
         }
 
         private async Task GetImagesAsync()
         {
             var endpoint = new AccountEndpoint(currentUser);
             IEnumerable<IImage> images = await endpoint.GetImagesAsync();
-            _adapter = new LvImgBinder(this, Resource.Layout.listview_model, images.ToList());
-            _lv.Adapter = _adapter;
-            _lv.ItemClick += lv_ItemClick;
+            _adapter = new LvImgBinder(this, Resource.Layout.listview_model, images.ToList(), currentUser);
+            RunOnUiThread(() =>
+            {
+                _lv.Adapter = _adapter;
+                _lv.ItemClick += lv_ItemClick;
+            });
         }
 
         private void FabOnClick(object sender, EventArgs eventArgs)
         {
-            GetImagesAsync();
+            ThreadPool.QueueUserWorkItem(o => GetImagesAsync());
             View view = (View)sender;
             Snackbar.Make(view, "Updating images, please wait...", Snackbar.LengthLong)
                 .SetAction("Update", (View.IOnClickListener)null).Show();
@@ -116,14 +119,16 @@ namespace Epicture.Upload
         private async void LoadUser()
         {
             currentUser = LoginActivity.GetImgurClient();
-            return;
             var endpoint = new AccountEndpoint(currentUser);
             IAccountSettings submissions = await endpoint.GetAccountSettingsAsync();
-            //Bind user infos
-            TextView username = FindViewById<TextView>(Resource.Id.userName);
-            username.Text = submissions.AccountUrl;
-            TextView usermail = FindViewById<TextView>(Resource.Id.userMail);
-            usermail.Text = submissions.Email;
+            RunOnUiThread(() =>
+            {
+                //Bind user infos
+                TextView username = FindViewById<TextView>(Resource.Id.userName);
+                username.Text = submissions.AccountUrl;
+                TextView usermail = FindViewById<TextView>(Resource.Id.userMail);
+                usermail.Text = submissions.Email;
+            });
         }
     }
 }

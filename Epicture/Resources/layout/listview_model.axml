@@ -9,14 +9,24 @@
       android:id="@+id/imgurImg"
       android:layout_marginRight="0.0dp"
       android:padding="15dp" />
-  <TextView
+	<ImageButton
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="right"
+		android:padding="15dp"
+		android:layout_toRightOf="@+id/imgurImg"
+		android:src="@drawable/dislike"
+		android:id="@+id/likeButton"
+		android:background="#80ffffff" />
+	<TextView
       android:text="Medium Text"
       android:textAppearance="?android:attr/textAppearanceMedium"
       android:layout_width="wrap_content"
-      android:layout_height="90dp"
+      android:layout_height="wrap_content"
       android:padding="15dp"
       android:id="@+id/imgTitle"
-      android:layout_toRightOf="@+id/imgurImg"
-      android:layout_alignParentRight="true"
+	  android:layout_marginRight="0.0dp"
+      android:layout_toRightOf="@+id/likeButton"
       android:textColor="#000" />
+
 </LinearLayout>

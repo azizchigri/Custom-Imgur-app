@@ -8,6 +8,9 @@ using Com.Bumptech.Glide;
 using Com.Bumptech.Glide.Request;
 using Imgur.API.Models.Impl;
 using System;
+using Imgur.API.Authentication.Impl;
+using Imgur.API.Endpoints.Impl;
+using System.Threading;
 
 namespace Epicture.Gallery
 {
@@ -17,12 +20,14 @@ namespace Epicture.Gallery
         private List<IGalleryItem> images;
         private LayoutInflater inflater;
         private int resource;
+        private ImgurClient client;
 
-        public LvGalleryBinder(Context context, int resource, List<IGalleryItem> images) : base(context, resource, images)
+        public LvGalleryBinder(Context context, int resource, List<IGalleryItem> images, ImgurClient client) : base(context, resource, images)
         {
             this.c = context;
             this.resource = resource;
             this.images = images;
+            this.client = client;
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
@@ -54,6 +59,20 @@ namespace Epicture.Gallery
                 NameTxt = { Text = img.Title }
 
             };
+            if (img.Favorite.Value)
+                holder.button.SetImageResource(Resource.Drawable.like);
+            else
+                holder.button.SetImageResource(Resource.Drawable.dislike);
+            holder.button.Click += delegate
+            {
+                var endpoint = new ImageEndpoint(client);
+                ThreadPool.QueueUserWorkItem(o => endpoint.FavoriteImageAsync(img.Id));
+                img.Favorite = !img.Favorite;
+                if (img.Favorite.Value)
+                    holder.button.SetImageResource(Resource.Drawable.like);
+                else
+                    holder.button.SetImageResource(Resource.Drawable.dislike);
+            };
             Glide
                 .With(this.c)
                 .Load(img.Link)
@@ -68,6 +87,20 @@ namespace Epicture.Gallery
             {
                 NameTxt = { Text = img.Title }
 
+            };
+            if (img.Favorite.Value)
+                holder.button.SetImageResource(Resource.Drawable.like);
+            else
+                holder.button.SetImageResource(Resource.Drawable.dislike);
+            holder.button.Click += delegate
+            {
+                var endpoint = new ImageEndpoint(client);
+                ThreadPool.QueueUserWorkItem(o => endpoint.FavoriteImageAsync(img.Id));
+                img.Favorite = !img.Favorite;
+                if (img.Favorite.Value)
+                    holder.button.SetImageResource(Resource.Drawable.like);
+                else
+                    holder.button.SetImageResource(Resource.Drawable.dislike);
             };
             Glide
                 .With(this.c)

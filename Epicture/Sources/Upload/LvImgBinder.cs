@@ -6,6 +6,9 @@ using Android.Widget;
 using Imgur.API.Models;
 using Com.Bumptech.Glide;
 using Com.Bumptech.Glide.Request;
+using Imgur.API.Endpoints.Impl;
+using System.Threading;
+using Imgur.API.Authentication.Impl;
 
 namespace Epicture.Upload
 {
@@ -15,12 +18,14 @@ namespace Epicture.Upload
         private List<IImage> images;
         private LayoutInflater inflater;
         private int resource;
+        private ImgurClient client;
 
-        public LvImgBinder(Context context, int resource, List<IImage> images) : base(context, resource, images)
+        public LvImgBinder(Context context, int resource, List<IImage> images, ImgurClient client) : base(context, resource, images)
         {
             this.c = context;
             this.resource = resource;
             this.images = images;
+            this.client = client;
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
@@ -39,6 +44,20 @@ namespace Epicture.Upload
             {
                 NameTxt = { Text = images[position].Name ?? images[position].Title }
 
+            };
+            if (images[position].Favorite.Value)
+                holder.button.SetImageResource(Resource.Drawable.like);
+            else
+                holder.button.SetImageResource(Resource.Drawable.dislike);
+            holder.button.Click += delegate
+            {
+                var endpoint = new ImageEndpoint(client);
+                ThreadPool.QueueUserWorkItem(o => endpoint.FavoriteImageAsync(images[position].Id));
+                images[position].Favorite = !images[position].Favorite;
+                if (images[position].Favorite.Value)
+                    holder.button.SetImageResource(Resource.Drawable.like);
+                else
+                    holder.button.SetImageResource(Resource.Drawable.dislike);
             };
             Glide
                 .With(this.c)

@@ -98,6 +98,9 @@
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\values-v21\styles.xml" />
     <AndroidResource Include="Resources\drawable\side_nav_bar.xml" />
+	<AndroidResource Include="Resources\drawable\upload.xml" />
+	<AndroidResource Include="Resources\drawable\like.xml" />
+	<AndroidResource Include="Resources\drawable\dislike.xml" />
     <AndroidResource Include="Resources\drawable-v21\ic_menu_search.xml" />
     <AndroidResource Include="Resources\drawable-v21\ic_menu_image.xml" />
     <AndroidResource Include="Resources\drawable-v21\ic_menu_logout.xml" />

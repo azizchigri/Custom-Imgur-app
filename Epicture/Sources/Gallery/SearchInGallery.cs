@@ -17,6 +17,7 @@ using Android.Support.V4.View;
 using Epicture.Upload;
 using System;
 using Epicture.Favorites;
+using System.Threading;
 
 namespace Epicture.Gallery
 {
@@ -30,7 +31,7 @@ namespace Epicture.Gallery
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            LoadUser();
+            ThreadPool.QueueUserWorkItem(o => LoadUser());
             SetContentView(Resource.Layout.activity_search);
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
@@ -49,7 +50,7 @@ namespace Epicture.Gallery
             Button searchButton = FindViewById<Button>(Resource.Id.searchButton);
             searchButton.Click += (sender, e) =>
             {
-                GetGalleryImagesAsync(filterText.Text);
+                ThreadPool.QueueUserWorkItem(o => GetGalleryImagesAsync(filterText.Text));
             };
         }
 
@@ -57,9 +58,12 @@ namespace Epicture.Gallery
         {
             var endpoint = new GalleryEndpoint(currentUser);
             IEnumerable<IGalleryItem> images = await endpoint.SearchGalleryAsync(query);
-            _adapter = new LvGalleryBinder(this, Resource.Layout.listview_model, images.ToList());
-            _lv.Adapter = _adapter;
-            _lv.ItemClick += lv_ItemClick;
+            _adapter = new LvGalleryBinder(this, Resource.Layout.listview_model, images.ToList(), currentUser);
+            RunOnUiThread(() =>
+            {
+                _lv.Adapter = _adapter;
+                _lv.ItemClick += lv_ItemClick;
+            });
         }
 
         public bool OnNavigationItemSelected(IMenuItem item)
@@ -105,14 +109,16 @@ namespace Epicture.Gallery
         private async void LoadUser()
         {
             currentUser = LoginActivity.GetImgurClient();
-            return;
             var endpoint = new AccountEndpoint(currentUser);
             IAccountSettings submissions = await endpoint.GetAccountSettingsAsync();
-            //Bind user infos
-            TextView username = FindViewById<TextView>(Resource.Id.userName);
-            username.Text = submissions.AccountUrl;
-            TextView usermail = FindViewById<TextView>(Resource.Id.userMail);
-            usermail.Text = submissions.Email;
+            RunOnUiThread(() =>
+            {
+                //Bind user infos
+                TextView username = FindViewById<TextView>(Resource.Id.userName);
+                username.Text = submissions.AccountUrl;
+                TextView usermail = FindViewById<TextView>(Resource.Id.userMail);
+                usermail.Text = submissions.Email;
+            });
         }
     }
 }
