@@ -27,6 +27,8 @@ namespace Epicture.Favorites
         private ImgurClient currentUser;
         private LvGalleryBinder _adapter;
         private ListView _lv;
+        private IEnumerable<IGalleryItem> images;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -55,7 +57,7 @@ namespace Epicture.Favorites
         private async Task GetFavoriteImagesAsync()
         {
             var endpoint = new AccountEndpoint(currentUser);
-            IEnumerable<IGalleryItem> images = await endpoint.GetAccountFavoritesAsync();
+            images = await endpoint.GetAccountFavoritesAsync();
             _adapter = new LvGalleryBinder(this, Resource.Layout.listview_model, images.ToList(), currentUser);
             RunOnUiThread(() =>
             {
@@ -109,7 +111,10 @@ namespace Epicture.Favorites
 
         private void lv_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            Toast.MakeText(this, "Tu viens de cliquer", ToastLength.Short).Show();
+            GalleryFragmentActivity.images = this.images.ToList();
+            var activity = new Intent(this, typeof(GalleryFragmentActivity));
+            activity.PutExtra("position", e.Position);
+            StartActivity(activity);
         }
 
         private async void LoadUser()
