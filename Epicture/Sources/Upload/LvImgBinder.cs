@@ -45,6 +45,9 @@ namespace Epicture.Upload
                 NameTxt = { Text = images[position].Name ?? images[position].Title }
 
             };
+            holder.button.Focusable = false;
+            holder.button.FocusableInTouchMode = false;
+            holder.button.Clickable = true;
             if (images[position].Favorite.Value)
                 holder.button.SetImageResource(Resource.Drawable.like);
             else

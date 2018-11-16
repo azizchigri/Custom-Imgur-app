@@ -64,6 +64,11 @@
     <Compile Include="Sources\Gallery\SearchInGallery.cs" />
     <Compile Include="Sources\Gallery\LvGalleryBinder.cs" />
     <Compile Include="Sources\Home.cs" />
+    <Compile Include="Sources\ImageSample\GalleryFragmentActivity.cs" />
+    <Compile Include="Sources\ImageSample\ImageFragmentActivity.cs" />
+    <Compile Include="Sources\ImageSample\ImageFragment.cs" />
+    <Compile Include="Sources\ImageSample\GalleryFragmentAdapter.cs" />
+    <Compile Include="Sources\ImageSample\ImageFragmentAdapter.cs" />
     <Compile Include="Sources\Login\ImgurAuthInterceptor.cs" />
     <Compile Include="Sources\Login\LoginActivity.cs" />
     <Compile Include="Sources\StartScreen\SplashActivity.cs" />
@@ -221,6 +226,16 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_edit_image.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\image_sample.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\content_image.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

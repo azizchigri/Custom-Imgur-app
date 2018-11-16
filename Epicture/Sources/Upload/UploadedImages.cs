@@ -18,6 +18,7 @@ using Android.Support.V7.App;
 using Epicture.Gallery;
 using Epicture.Favorites;
 using System.Threading;
+using Newtonsoft.Json;
 
 namespace Epicture.Upload
 {
@@ -28,6 +29,7 @@ namespace Epicture.Upload
         private LvImgBinder _adapter;
         private ListView _lv;
         public static readonly int UploadImageId = 2000;
+        private IEnumerable<IImage> images;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -72,7 +74,7 @@ namespace Epicture.Upload
         private async Task GetImagesAsync()
         {
             var endpoint = new AccountEndpoint(currentUser);
-            IEnumerable<IImage> images = await endpoint.GetImagesAsync();
+            images = await endpoint.GetImagesAsync();
             _adapter = new LvImgBinder(this, Resource.Layout.listview_model, images.ToList(), currentUser);
             RunOnUiThread(() =>
             {
@@ -126,7 +128,10 @@ namespace Epicture.Upload
 
         private void lv_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            Toast.MakeText(this, "Tu viens de cliquer", ToastLength.Short).Show();
+            ImageFragmentActivity.images = this.images.ToList();
+            var activity = new Intent(this, typeof(ImageFragmentActivity));
+            activity.PutExtra("position", e.Position);
+            StartActivity(activity);
         }
 
         private async void LoadUser()

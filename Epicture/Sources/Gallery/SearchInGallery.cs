@@ -27,6 +27,7 @@ namespace Epicture.Gallery
         private ImgurClient currentUser;
         private LvGalleryBinder _adapter;
         private ListView _lv;
+        private IEnumerable<IGalleryItem> images;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -57,7 +58,7 @@ namespace Epicture.Gallery
         private async Task GetGalleryImagesAsync(string query)
         {
             var endpoint = new GalleryEndpoint(currentUser);
-            IEnumerable<IGalleryItem> images = await endpoint.SearchGalleryAsync(query);
+            images = await endpoint.SearchGalleryAsync(query);
             _adapter = new LvGalleryBinder(this, Resource.Layout.listview_model, images.ToList(), currentUser);
             RunOnUiThread(() =>
             {
@@ -103,7 +104,10 @@ namespace Epicture.Gallery
 
         private void lv_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            Toast.MakeText(this, "Tu viens de cliquer", ToastLength.Short).Show();
+            GalleryFragmentActivity.images = this.images.ToList();
+            var activity = new Intent(this, typeof(GalleryFragmentActivity));
+            activity.PutExtra("position", e.Position);
+            StartActivity(activity);
         }
 
         private async void LoadUser()
