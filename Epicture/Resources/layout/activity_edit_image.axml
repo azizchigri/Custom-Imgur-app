@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+	<LinearLayout
+	    android:orientation="vertical"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent">
+		<TextView
+			android:text="Title:"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:id="@+id/txtvTitleUpload" />
+		<EditText
+			android:hint="Enter your title (Required)"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/txtiTitleUpload" />
+		<TextView
+			android:text="Image:"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:id="@+id/txtvImageUpload" />
+		<ImageView
+			android:src="@android:drawable/ic_menu_gallery"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/imgvImageUpload" />
+		<TextView
+			android:text="Description:"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:minWidth="25px"
+			android:minHeight="25px"
+			android:id="@+id/txtvDescriptionUpload" />
+		<EditText
+			android:hint="Add a description here"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/txtiDescriptionUpload" />
+		<Button
+			android:text="Upload"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/btnUpload" />
+	
+	</LinearLayout>
+</ScrollView>

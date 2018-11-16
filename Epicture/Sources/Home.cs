@@ -99,19 +99,7 @@ namespace Epicture
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-            MenuInflater.Inflate(Resource.Menu.menu_main, menu);
-            return true;
-        }
-
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            int id = item.ItemId;
-            if (id == Resource.Id.action_settings)
-            {
-                return true;
-            }
-
-            return base.OnOptionsItemSelected(item);
+            return false;
         }
 
         private void FabOnClick(object sender, EventArgs eventArgs)

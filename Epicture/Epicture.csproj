@@ -68,6 +68,7 @@
     <Compile Include="Sources\Login\LoginActivity.cs" />
     <Compile Include="Sources\StartScreen\SplashActivity.cs" />
     <Compile Include="Sources\Upload\LvImgBinder.cs" />
+    <Compile Include="Sources\Upload\SendImageToUpload.cs" />
     <Compile Include="Sources\Upload\UploadActivity.cs" />
     <Compile Include="Sources\Upload\UploadedImages.cs" />
     <Compile Include="Sources\Utils\LvHolder.cs" />
@@ -108,7 +109,6 @@
     <AndroidResource Include="Resources\drawable-v21\ic_menu_favorite.xml" />
     <AndroidResource Include="Resources\drawable-v21\ic_menu_home.xml" />
     <AndroidResource Include="Resources\menu\activity_main_drawer.xml" />
-    <AndroidResource Include="Resources\menu\menu_main.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_launcher.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_launcher_round.xml" />
     <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png" />
@@ -218,6 +218,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\splash_screen.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_edit_image.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

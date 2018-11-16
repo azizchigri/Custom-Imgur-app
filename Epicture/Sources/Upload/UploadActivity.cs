@@ -9,6 +9,7 @@ using Android.Provider;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
 using Epicture.Login;
+using Epicture.Sources.Upload;
 using Imgur.API.Authentication.Impl;
 using Imgur.API.Endpoints.Impl;
 
@@ -58,9 +59,9 @@ namespace Epicture.Upload
             if ((requestCode == PickImageId) && (resultCode == Result.Ok) && (data != null))
             {
                 string imagePath = GetPathToImage(data.Data);
-                var endpoint = new ImageEndpoint(currentUser);
-                var file = System.IO.File.ReadAllBytes(imagePath);
-                var image = endpoint.UploadImageBinaryAsync(file, title:GetFileName(data.Data));
+                var intent = new Intent(this, typeof(SendImageToUpload));
+                intent.PutExtra("path", imagePath);
+                StartActivity(intent);
                 Finish();
             }
         }
@@ -81,22 +82,6 @@ namespace Epicture.Upload
             cursor.Close();
 
             return path;
-        }
-
-        private string GetFileName(Android.Net.Uri uri)
-        {
-            ContentResolver resolver = ContentResolver;
-            ICursor returnCursor =
-            resolver.Query(uri, null, null, null, null);
-            if (returnCursor != null)
-            {
-                int nameIndex = returnCursor.GetColumnIndex(OpenableColumns.DisplayName);
-                returnCursor.MoveToFirst();
-                String name = returnCursor.GetString(nameIndex);
-                returnCursor.Close();
-                return name;
-            }
-            return "Unknown";
         }
     }
 }
