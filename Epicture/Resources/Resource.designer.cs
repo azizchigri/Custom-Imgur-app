@@ -2594,9 +2594,6 @@ namespace Epicture
 			// aapt resource value: 0x7f09005c
 			public const int action_mode_close_button = 2131296348;
 			
-			// aapt resource value: 0x7f0900ce
-			public const int action_settings = 2131296462;
-			
 			// aapt resource value: 0x7f0900b5
 			public const int action_text = 2131296437;
 			
@@ -3445,9 +3442,6 @@ namespace Epicture
 			
 			// aapt resource value: 0x7f0e0000
 			public const int activity_main_drawer = 2131623936;
-			
-			// aapt resource value: 0x7f0e0001
-			public const int menu_main = 2131623937;
 			
 			static Menu()
 			{
