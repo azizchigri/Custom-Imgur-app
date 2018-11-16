@@ -60,7 +60,6 @@ namespace Epicture.Upload
             {
                 string imagePath = GetPathToImage(data.Data);
                 var intent = new Intent(this, typeof(SendImageToUpload));
-                intent.PutExtra("dataimage", data);
                 intent.PutExtra("path", imagePath);
                 StartActivity(intent);
                 Finish();

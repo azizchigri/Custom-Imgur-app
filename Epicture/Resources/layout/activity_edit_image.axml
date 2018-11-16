@@ -17,6 +17,7 @@
 			android:minHeight="25px"
 			android:id="@+id/txtvTitleUpload" />
 		<EditText
+			android:hint="Enter your title (Required)"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:id="@+id/txtiTitleUpload" />
@@ -42,6 +43,7 @@
 			android:minHeight="25px"
 			android:id="@+id/txtvDescriptionUpload" />
 		<EditText
+			android:hint="Add a description here"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:id="@+id/txtiDescriptionUpload" />

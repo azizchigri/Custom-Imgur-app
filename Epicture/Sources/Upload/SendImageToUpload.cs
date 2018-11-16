@@ -40,7 +40,26 @@ namespace Epicture.Sources.Upload
                 .Into(img);
 
             var btn = FindViewById<Button>(Resource.Id.btnUpload);
+            btn.Enabled = false;
+            var title = FindViewById<EditText>(Resource.Id.txtiTitleUpload);
+            title.AfterTextChanged += (s, e) =>
+            {
+                if (title.Text == null || title.Text == "")
+                {
+                    btn.Enabled = false;
+                }
+                else
+                {
+                    btn.Enabled = true;
+                }
+            };
             btn.Click += btn_OnClick;
+        }
+
+        private void title_checktext(object s, EventArgs e)
+        {
+            var btn = FindViewById<Button>(Resource.Id.btnUpload);
+
         }
 
         private void btn_OnClick(object sender, EventArgs eventArgs)
