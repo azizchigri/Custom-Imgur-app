@@ -56,12 +56,6 @@ namespace Epicture.Sources.Upload
             btn.Click += btn_OnClick;
         }
 
-        private void title_checktext(object s, EventArgs e)
-        {
-            var btn = FindViewById<Button>(Resource.Id.btnUpload);
-
-        }
-
         private void btn_OnClick(object sender, EventArgs eventArgs)
         {
             var title = FindViewById<EditText>(Resource.Id.txtiTitleUpload);
@@ -69,6 +63,8 @@ namespace Epicture.Sources.Upload
             var endpoint = new ImageEndpoint(currentUser);
             var file = System.IO.File.ReadAllBytes(imagePath);
             ThreadPool.QueueUserWorkItem(o => endpoint.UploadImageBinaryAsync(file, title: title.Text, description: description.Text));
+            Intent returnIntent = new Intent();
+            SetResult(Result.Ok, returnIntent);
             Finish();
         }
     }

@@ -19,6 +19,8 @@ namespace Epicture.Upload
     public class UploadActivity : Activity
     {
         public static readonly int PickImageId = 1000;
+        public static readonly int UploadImageId = 2000;
+
         private ImgurClient currentUser;
         protected override void OnCreate(Bundle bundle)
         {
@@ -53,15 +55,33 @@ namespace Epicture.Upload
             }
         }
 
+        private void StartUploadImageActivity(Intent data)
+        {
+            string imagePath = GetPathToImage(data.Data);
+            var intent = new Intent(this, typeof(SendImageToUpload));
+            intent.PutExtra("path", imagePath);
+            StartActivityForResult(intent, UploadImageId);
+        }
+
         // Create a Method OnActivityResult(it is select the image controller)   
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             if ((requestCode == PickImageId) && (resultCode == Result.Ok) && (data != null))
             {
-                string imagePath = GetPathToImage(data.Data);
-                var intent = new Intent(this, typeof(SendImageToUpload));
-                intent.PutExtra("path", imagePath);
-                StartActivity(intent);
+                StartUploadImageActivity(data);
+            }
+            else if ((requestCode == PickImageId) && (resultCode == Result.Canceled))
+            {
+                Finish();
+            }
+            else if ((requestCode == UploadImageId) && (resultCode == Result.Ok))
+            {
+                Intent returnIntent = new Intent();
+                SetResult(Result.Ok, returnIntent);
+                Finish();
+            }
+            else if ((requestCode == UploadImageId) && (resultCode == Result.Canceled))
+            {
                 Finish();
             }
         }

@@ -27,6 +27,8 @@ namespace Epicture.Upload
         private ImgurClient currentUser;
         private LvImgBinder _adapter;
         private ListView _lv;
+        public static readonly int UploadImageId = 2000;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -51,9 +53,20 @@ namespace Epicture.Upload
             Button button = FindViewById<Button>(Resource.Id.pickButton);
             button.Click += (sender, e) =>
             {
-                StartActivity(typeof(UploadActivity));
+                StartActivityForResult(typeof(UploadActivity), UploadImageId);
             };
             ThreadPool.QueueUserWorkItem(o => GetImagesAsync());
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            if ((requestCode == UploadImageId) && (resultCode == Result.Ok))
+            {
+                ThreadPool.QueueUserWorkItem(o => GetImagesAsync());
+                View view = this.CurrentFocus;
+                Snackbar.Make(view, "Updating images, please wait...", Snackbar.LengthLong)
+                    .SetAction("Update", (View.IOnClickListener)null).Show();
+            }
         }
 
         private async Task GetImagesAsync()
