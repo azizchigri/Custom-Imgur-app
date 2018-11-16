@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-
+using System.Threading;
 using Android.App;
 using Android.Content;
 using Android.Database;
@@ -68,7 +68,7 @@ namespace Epicture.Sources.Upload
             var description = FindViewById<EditText>(Resource.Id.txtiDescriptionUpload);
             var endpoint = new ImageEndpoint(currentUser);
             var file = System.IO.File.ReadAllBytes(imagePath);
-            var image = endpoint.UploadImageBinaryAsync(file, title: title.Text, description: description.Text);
+            ThreadPool.QueueUserWorkItem(o => endpoint.UploadImageBinaryAsync(file, title: title.Text, description: description.Text));
             Finish();
         }
     }
