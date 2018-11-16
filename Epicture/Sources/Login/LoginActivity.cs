@@ -10,7 +10,7 @@ using Android.Content;
 
 namespace Epicture.Login
 {
-    [Activity(Label = "LoginActivity")]
+    [Activity(Label = "LoginActivity", NoHistory = true)]
     public class LoginActivity : Activity
     {
         private static Xamarin.Auth.Account currentUser = null;

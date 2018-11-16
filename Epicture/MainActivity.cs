@@ -5,7 +5,7 @@ using Epicture.Login;
 
 namespace Epicture
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = false, Icon = "@drawable/logo", NoHistory = true)]
     public class MainActivity : AppCompatActivity
     {
 

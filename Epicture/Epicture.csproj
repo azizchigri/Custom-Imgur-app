@@ -66,6 +66,7 @@
     <Compile Include="Sources\Home.cs" />
     <Compile Include="Sources\Login\ImgurAuthInterceptor.cs" />
     <Compile Include="Sources\Login\LoginActivity.cs" />
+    <Compile Include="Sources\StartScreen\SplashActivity.cs" />
     <Compile Include="Sources\Upload\LvImgBinder.cs" />
     <Compile Include="Sources\Upload\UploadActivity.cs" />
     <Compile Include="Sources\Upload\UploadedImages.cs" />
@@ -98,9 +99,9 @@
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\values-v21\styles.xml" />
     <AndroidResource Include="Resources\drawable\side_nav_bar.xml" />
-	<AndroidResource Include="Resources\drawable\upload.xml" />
-	<AndroidResource Include="Resources\drawable\like.xml" />
-	<AndroidResource Include="Resources\drawable\dislike.xml" />
+    <AndroidResource Include="Resources\drawable\upload.xml" />
+    <AndroidResource Include="Resources\drawable\like.xml" />
+    <AndroidResource Include="Resources\drawable\dislike.xml" />
     <AndroidResource Include="Resources\drawable-v21\ic_menu_search.xml" />
     <AndroidResource Include="Resources\drawable-v21\ic_menu_image.xml" />
     <AndroidResource Include="Resources\drawable-v21\ic_menu_logout.xml" />
@@ -147,6 +148,9 @@
       <Version>27.0.2.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Media.Compat">
+      <Version>27.0.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Android.Support.v4">
       <Version>27.0.2.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat">
@@ -208,6 +212,12 @@
     <AndroidResource Include="Resources\layout\content_favorite.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\splash_screen.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
