@@ -59,6 +59,9 @@ namespace Epicture.Gallery
                 NameTxt = { Text = img.Title }
 
             };
+            holder.button.Focusable = false;
+            holder.button.FocusableInTouchMode = false;
+            holder.button.Clickable = true;
             if (img.Favorite.Value)
                 holder.button.SetImageResource(Resource.Drawable.like);
             else
@@ -88,6 +91,9 @@ namespace Epicture.Gallery
                 NameTxt = { Text = img.Title }
 
             };
+            holder.button.Focusable = false;
+            holder.button.FocusableInTouchMode = false;
+            holder.button.Clickable = true;
             if (img.Favorite.Value)
                 holder.button.SetImageResource(Resource.Drawable.like);
             else
@@ -108,6 +114,5 @@ namespace Epicture.Gallery
                 .Apply(RequestOptions.CircleCropTransform()).Into(holder.Img);
             return holder;
         }
-
     }
 }
