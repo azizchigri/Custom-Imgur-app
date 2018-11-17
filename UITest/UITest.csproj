@@ -38,6 +38,7 @@
     <Compile Include="FavoriteTests.cs" />
     <Compile Include="GalleryTests.cs" />
     <Compile Include="AppInitializer.cs" />
+    <Compile Include="GeneralTests.cs" />
     <Compile Include="ImagesTests.cs" />
     <Compile Include="SearchTests.cs" />
   </ItemGroup>
