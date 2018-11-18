@@ -68,13 +68,14 @@ namespace Epicture.Gallery
                 holder.button.SetImageResource(Resource.Drawable.dislike);
             holder.button.Click += delegate
             {
-                var endpoint = new ImageEndpoint(client);
-                ThreadPool.QueueUserWorkItem(o => endpoint.FavoriteImageAsync(img.Id));
+                var endpoint = new AlbumEndpoint(client);
+                ThreadPool.QueueUserWorkItem(o => endpoint.FavoriteAlbumAsync(img.Id));
                 img.Favorite = !img.Favorite;
                 if (img.Favorite.Value)
                     holder.button.SetImageResource(Resource.Drawable.like);
                 else
                     holder.button.SetImageResource(Resource.Drawable.dislike);
+                images[position] = img;
             };
             Glide
                 .With(this.c)
@@ -107,6 +108,7 @@ namespace Epicture.Gallery
                     holder.button.SetImageResource(Resource.Drawable.like);
                 else
                     holder.button.SetImageResource(Resource.Drawable.dislike);
+                images[position] = img;
             };
             Glide
                 .With(this.c)
