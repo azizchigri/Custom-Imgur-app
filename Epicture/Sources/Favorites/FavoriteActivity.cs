@@ -28,6 +28,7 @@ namespace Epicture.Favorites
         private LvGalleryBinder _adapter;
         private ListView _lv;
         private IEnumerable<IGalleryItem> images;
+        SwipeRefreshLayout mSwipe;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -36,11 +37,12 @@ namespace Epicture.Favorites
             ThreadPool.QueueUserWorkItem(o => LoadUser());
             SetContentView(Resource.Layout.activity_favorite);
 
+            mSwipe = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_refresh);
+            mSwipe.SetColorSchemeColors(Android.Resource.Color.HoloBlueBright, Android.Resource.Color.HoloBlueDark, Android.Resource.Color.HoloGreenLight, Android.Resource.Color.HoloRedLight);
+            mSwipe.Refresh += mSwipe_Refresh;
+
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
-
-            FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
-            fab.Click += FabOnClick;
 
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, Resource.String.navigation_drawer_open, Resource.String.navigation_drawer_close);
@@ -66,12 +68,13 @@ namespace Epicture.Favorites
             });
         }
 
-        private void FabOnClick(object sender, EventArgs eventArgs)
+        void mSwipe_Refresh(object sender, EventArgs e)
         {
             ThreadPool.QueueUserWorkItem(o => GetFavoriteImagesAsync());
-            View view = (View)sender;
-            Snackbar.Make(view, "Updating favorites, please wait...", Snackbar.LengthLong)
-                .SetAction("Update", (View.IOnClickListener)null).Show();
+            RunOnUiThread(() =>
+            {
+                mSwipe.Refreshing = false;
+            });
         }
 
         public bool OnNavigationItemSelected(IMenuItem item)

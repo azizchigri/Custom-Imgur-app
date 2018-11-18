@@ -2819,14 +2819,14 @@ namespace Epicture
 			// aapt resource value: 0x7f090061
 			public const int list_item = 2131296353;
 			
-			// aapt resource value: 0x7f090097
-			public const int lvFavorite = 2131296407;
+			// aapt resource value: 0x7f090099
+			public const int lvFavorite = 2131296409;
 			
-			// aapt resource value: 0x7f09009b
-			public const int lvGallery = 2131296411;
+			// aapt resource value: 0x7f09009d
+			public const int lvGallery = 2131296413;
 			
-			// aapt resource value: 0x7f09009e
-			public const int lvSearched = 2131296414;
+			// aapt resource value: 0x7f0900a0
+			public const int lvSearched = 2131296416;
 			
 			// aapt resource value: 0x7f0900a1
 			public const int lvUpload = 2131296417;
@@ -2897,17 +2897,14 @@ namespace Epicture
 			// aapt resource value: 0x7f09000b
 			public const int parent_matrix = 2131296267;
 			
-			// aapt resource value: 0x7f09009f
-			public const int pickButton = 2131296415;
-			
-			// aapt resource value: 0x7f090098
-			public const int picture = 2131296408;
-			
 			// aapt resource value: 0x7f09009a
-			public const int pictureDescription = 2131296410;
+			public const int picture = 2131296410;
 			
-			// aapt resource value: 0x7f090099
-			public const int pictureTitle = 2131296409;
+			// aapt resource value: 0x7f09009c
+			public const int pictureDescription = 2131296412;
+			
+			// aapt resource value: 0x7f09009b
+			public const int pictureTitle = 2131296411;
 			
 			// aapt resource value: 0x7f09004d
 			public const int pin = 2131296333;
@@ -2957,11 +2954,11 @@ namespace Epicture
 			// aapt resource value: 0x7f090055
 			public const int scrollable = 2131296341;
 			
-			// aapt resource value: 0x7f09009d
-			public const int searchButton = 2131296413;
+			// aapt resource value: 0x7f09009f
+			public const int searchButton = 2131296415;
 			
-			// aapt resource value: 0x7f09009c
-			public const int searchFilter = 2131296412;
+			// aapt resource value: 0x7f09009e
+			public const int searchFilter = 2131296414;
 			
 			// aapt resource value: 0x7f090080
 			public const int search_badge = 2131296384;
@@ -3046,6 +3043,9 @@ namespace Epicture
 			
 			// aapt resource value: 0x7f090087
 			public const int submit_area = 2131296391;
+			
+			// aapt resource value: 0x7f090097
+			public const int swipe_refresh = 2131296407;
 			
 			// aapt resource value: 0x7f09001f
 			public const int tabMode = 2131296287;
@@ -3134,8 +3134,8 @@ namespace Epicture
 			// aapt resource value: 0x7f090009
 			public const int up = 2131296265;
 			
-			// aapt resource value: 0x7f0900a0
-			public const int uploadText = 2131296416;
+			// aapt resource value: 0x7f090098
+			public const int uploadText = 2131296408;
 			
 			// aapt resource value: 0x7f090026
 			public const int useLogo = 2131296294;

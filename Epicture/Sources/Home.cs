@@ -29,6 +29,7 @@ namespace Epicture
         private LvGalleryBinder _adapter;
         private ListView _lv;
         private IEnumerable<IGalleryItem> images;
+        SwipeRefreshLayout mSwipe;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -38,8 +39,9 @@ namespace Epicture
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 
-            FloatingActionButton fab = FindViewById<FloatingActionButton>(Resource.Id.fab);
-            fab.Click += FabOnClick;
+            mSwipe = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_refresh);
+            mSwipe.SetColorSchemeColors(Android.Resource.Color.HoloBlueBright, Android.Resource.Color.HoloBlueDark, Android.Resource.Color.HoloGreenLight, Android.Resource.Color.HoloRedLight);
+            mSwipe.Refresh += mSwipe_Refresh;
 
             DrawerLayout drawer = FindViewById<DrawerLayout>(Resource.Id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, Resource.String.navigation_drawer_open, Resource.String.navigation_drawer_close);
@@ -77,6 +79,15 @@ namespace Epicture
             {
                 _lv.Adapter = _adapter;
                 _lv.ItemClick += lv_ItemClick;
+            });
+        }
+
+        void mSwipe_Refresh(object sender, EventArgs e)
+        {
+            ThreadPool.QueueUserWorkItem(o => GetGalleryImagesAsync());
+            RunOnUiThread(() =>
+            {
+                mSwipe.Refreshing = false;
             });
         }
 

@@ -19,6 +19,7 @@ using Epicture.Gallery;
 using Epicture.Favorites;
 using System.Threading;
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace Epicture.Upload
 {
@@ -30,6 +31,7 @@ namespace Epicture.Upload
         private ListView _lv;
         public static readonly int UploadImageId = 2000;
         private IEnumerable<IImage> images;
+        SwipeRefreshLayout mSwipe;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -37,6 +39,11 @@ namespace Epicture.Upload
 
             ThreadPool.QueueUserWorkItem(o => LoadUser());
             SetContentView(Resource.Layout.activity_upload);
+
+            mSwipe = FindViewById<SwipeRefreshLayout>(Resource.Id.swipe_refresh);
+            mSwipe.SetColorSchemeColors(Android.Resource.Color.HoloBlueBright, Android.Resource.Color.HoloBlueDark, Android.Resource.Color.HoloGreenLight, Android.Resource.Color.HoloRedLight);
+            mSwipe.Refresh += mSwipe_Refresh;
+
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 
@@ -51,28 +58,12 @@ namespace Epicture.Upload
             NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             navigationView.SetNavigationItemSelectedListener(this);
             _lv = FindViewById<ListView>(Resource.Id.lvUpload);
-
-            Button button = FindViewById<Button>(Resource.Id.pickButton);
-            button.Click += (sender, e) =>
-            {
-                StartActivityForResult(typeof(UploadActivity), UploadImageId);
-            };
-            ThreadPool.QueueUserWorkItem(o => GetImagesAsync());
+            ThreadPool.QueueUserWorkItem(o => GetImagesAsync(0));
         }
 
-        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        private async Task GetImagesAsync(int delay)
         {
-            if ((requestCode == UploadImageId) && (resultCode == Result.Ok))
-            {
-                ThreadPool.QueueUserWorkItem(o => GetImagesAsync());
-                View view = this.CurrentFocus;
-                Snackbar.Make(view, "Updating images, please wait...", Snackbar.LengthLong)
-                    .SetAction("Update", (View.IOnClickListener)null).Show();
-            }
-        }
-
-        private async Task GetImagesAsync()
-        {
+            await Task.Delay(delay);
             var endpoint = new AccountEndpoint(currentUser);
             images = await endpoint.GetImagesAsync();
             _adapter = new LvImgBinder(this, Resource.Layout.listview_model, images.ToList(), currentUser);
@@ -83,12 +74,30 @@ namespace Epicture.Upload
             });
         }
 
+        void mSwipe_Refresh(object sender, EventArgs e)
+        {
+            ThreadPool.QueueUserWorkItem(o => GetImagesAsync(0));
+            RunOnUiThread(() =>
+            {
+                mSwipe.Refreshing = false;
+            });
+        }
+
         private void FabOnClick(object sender, EventArgs eventArgs)
         {
-            ThreadPool.QueueUserWorkItem(o => GetImagesAsync());
-            View view = (View)sender;
-            Snackbar.Make(view, "Updating images, please wait...", Snackbar.LengthLong)
-                .SetAction("Update", (View.IOnClickListener)null).Show();
+            StartActivityForResult(typeof(UploadActivity), UploadImageId);
+        }
+
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            if ((requestCode == UploadImageId) && (resultCode == Result.Ok))
+            {
+                var updateDelay = 6000;
+                ThreadPool.QueueUserWorkItem(o => GetImagesAsync(updateDelay));
+                View view = this.CurrentFocus;
+                Snackbar.Make(view, "Updating images, please wait...", duration: updateDelay)
+                    .SetAction("Update", (View.IOnClickListener)null).Show();
+            }
         }
 
         public bool OnNavigationItemSelected(IMenuItem item)
