@@ -47,11 +47,12 @@ namespace Epicture.Gallery
 
             _lv = FindViewById<ListView>(Resource.Id.lvSearched);
 
-            EditText filterText = FindViewById<EditText>(Resource.Id.searchFilter);
-            Button searchButton = FindViewById<Button>(Resource.Id.searchButton);
-            searchButton.Click += (sender, e) =>
+            SearchView searchButton = FindViewById<SearchView>(Resource.Id.searchButton);
+            searchButton.SetQueryHint("Enter your query");
+            searchButton.SetIconifiedByDefault(false);
+            searchButton.QueryTextSubmit += (sender, e) =>
             {
-                ThreadPool.QueueUserWorkItem(o => GetGalleryImagesAsync(filterText.Text));
+                ThreadPool.QueueUserWorkItem(o => GetGalleryImagesAsync(searchButton.Query));
             };
         }
 

@@ -7,17 +7,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_search">
 
-	<EditText
+	<SearchView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:hint="Enter your query"
-		android:id="@+id/searchFilter" />
-	<Button
-		android:text="Search"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:id="@+id/searchButton" 
-		android:layout_below="@+id/searchFilter"/>
+		android:id="@+id/searchButton" />
 	<ListView
 		android:minWidth="25px"
 		android:minHeight="25px"
