@@ -38,9 +38,9 @@ namespace UITest
         [Test]
         public void SearchListView()
         {
-            app.WaitForElement(marked: "searchFilter", timeout: TimeSpan.FromMinutes(1));
-            app.EnterText(c => c.Marked("searchFilter"), "tutu");
-            app.Tap("searchButton");
+            app.WaitForElement(marked: "searchButton", timeout: TimeSpan.FromMinutes(1));
+            app.EnterText(c => c.Marked("searchButton"), "foot");
+            // tap on search button
             app.WaitForElement(marked: "imgurImg", timeout: TimeSpan.FromMinutes(1));
             AppResult[] results = app.Query(c => c.Marked("imgurImg"));
             Assert.IsTrue(results.Any());
