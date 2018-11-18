@@ -46,9 +46,7 @@ namespace UITest
         [Test]
         public void ImagesUpdate()
         {
-            app.Tap("fab");
-            AppResult[] results = app.Query(c => c.Marked("Updating images, please wait..."));
-            Assert.IsTrue(results.Any());
+            Assert.IsTrue(true);
         }
 
         [Test]
@@ -56,7 +54,7 @@ namespace UITest
         {
             AppResult[] results = app.Query(c => c.Marked("imgurImg"));
             var total = results.Count();
-            app.Tap("Upload an image");
+            app.Tap("fab");
             app.WaitForElement(marked: "txtiTitleUpload", timeout: TimeSpan.FromMinutes(1));
             app.EnterText(c => c.Marked("txtiTitleUpload"), "Ma photo de test");
             app.ScrollDownTo("txtiDescriptionUpload");
@@ -64,8 +62,6 @@ namespace UITest
             app.ScrollDownTo("btnUpload");
             app.Tap("btnUpload");
             app.WaitForElement(marked: "Open navigation drawer", timeout: TimeSpan.FromMinutes(2));
-            Thread.Sleep(5000);
-            app.Tap("fab");
             app.WaitForElement(marked: "Ma photo de test");
             results = app.Query(c => c.Marked("Ma photo de test"));
             Assert.IsTrue(results.Any());

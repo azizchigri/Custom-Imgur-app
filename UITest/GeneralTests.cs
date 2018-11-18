@@ -40,7 +40,9 @@ namespace UITest
         [Test]
         public void Disconnect()
         {
-            app.Tap("Search");
+            app.Tap("Disconnect");
+            AppResult[] results = app.Query(c => c.Marked("Open navigation drawer"));
+            Assert.IsTrue(results.Count() == 0);
         }
     }
 }
