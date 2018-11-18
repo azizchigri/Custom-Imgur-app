@@ -36,12 +36,6 @@ namespace UITest
         }
 
         [Test]
-        public void FirstUnitTest()
-        {
-            app.Repl();
-        }
-
-        [Test]
         public void FavoriteListView()
         {
             app.WaitForElement(marked: "imgurImg");
