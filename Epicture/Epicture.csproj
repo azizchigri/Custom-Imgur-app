@@ -62,12 +62,9 @@
     <Compile Include="Sources\Constants\Constants.cs" />
     <Compile Include="Sources\Favorites\FavoriteActivity.cs" />
     <Compile Include="Sources\Gallery\SearchInGallery.cs" />
-    <Compile Include="Sources\Gallery\LvGalleryBinder.cs" />
     <Compile Include="Sources\Home.cs" />
-    <Compile Include="Sources\ImageSample\GalleryFragmentActivity.cs" />
     <Compile Include="Sources\ImageSample\ImageFragmentActivity.cs" />
     <Compile Include="Sources\ImageSample\ImageFragment.cs" />
-    <Compile Include="Sources\ImageSample\GalleryFragmentAdapter.cs" />
     <Compile Include="Sources\ImageSample\ImageFragmentAdapter.cs" />
     <Compile Include="Sources\Login\ImgurAuthInterceptor.cs" />
     <Compile Include="Sources\Login\LoginActivity.cs" />

@@ -10,15 +10,16 @@ using Android.Runtime;
 using Android.Support.V4.App;
 using Android.Views;
 using Android.Widget;
+using Epicture.Sources.Utils;
 using Imgur.API.Models;
 
 namespace Epicture.Sources.ImageSample
 {
     class ImageFragmentAdapter : FragmentPagerAdapter
     {
-        List<IImage> imageList;
+        List<LvEntity> imageList;
 
-        public ImageFragmentAdapter(Android.Support.V4.App.FragmentManager fm, List<IImage> imageList)
+        public ImageFragmentAdapter(Android.Support.V4.App.FragmentManager fm, List<LvEntity> imageList)
         : base(fm)
         {
             this.imageList = imageList;
@@ -32,7 +33,7 @@ namespace Epicture.Sources.ImageSample
         public override Android.Support.V4.App.Fragment GetItem(int position)
         {
             return ImageFragment.newInstance(
-                    imageList[position].Title, imageList[position].Description, imageList[position].Link);
+                    imageList[position].Name, imageList[position].Description, imageList[position].Link);
         }
     }
 }

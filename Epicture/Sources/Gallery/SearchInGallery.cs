@@ -18,6 +18,7 @@ using Epicture.Upload;
 using System;
 using Epicture.Favorites;
 using System.Threading;
+using Epicture.Sources.Utils;
 
 namespace Epicture.Gallery
 {
@@ -25,9 +26,9 @@ namespace Epicture.Gallery
     public class SearchInGallery : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
     {
         private ImgurClient currentUser;
-        private LvGalleryBinder _adapter;
+        private LvImgBinder _adapter;
         private ListView _lv;
-        private IEnumerable<IGalleryItem> images;
+        private List<LvEntity> images = null;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -59,8 +60,11 @@ namespace Epicture.Gallery
         private async Task GetGalleryImagesAsync(string query)
         {
             var endpoint = new GalleryEndpoint(currentUser);
-            images = await endpoint.SearchGalleryAsync(query);
-            _adapter = new LvGalleryBinder(this, Resource.Layout.listview_model, images.ToList(), currentUser);
+            IEnumerable<IGalleryItem> images = await endpoint.SearchGalleryAsync(query);
+            if (this.images != null)
+                this.images.Clear();
+            this.images = FilterClass<IGalleryItem>.convertList(null, images.ToList());
+            _adapter = new LvImgBinder(this, Resource.Layout.listview_model, this.images, currentUser);
             RunOnUiThread(() =>
             {
                 _lv.Adapter = _adapter;
@@ -105,8 +109,8 @@ namespace Epicture.Gallery
 
         private void lv_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            GalleryFragmentActivity.images = this.images.ToList();
-            var activity = new Intent(this, typeof(GalleryFragmentActivity));
+            ImageFragmentActivity.images = this.images;
+            var activity = new Intent(this, typeof(ImageFragmentActivity));
             activity.PutExtra("position", e.Position);
             StartActivity(activity);
         }

@@ -15,6 +15,7 @@ using Android.Widget;
 using Epicture.Favorites;
 using Epicture.Gallery;
 using Epicture.Login;
+using Epicture.Sources.Utils;
 using Epicture.Upload;
 using Imgur.API.Authentication.Impl;
 using Imgur.API.Endpoints.Impl;
@@ -26,9 +27,9 @@ namespace Epicture
     public class Home : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
     {
         private static ImgurClient currentUser = null;
-        private LvGalleryBinder _adapter;
+        private LvImgBinder _adapter;
         private ListView _lv;
-        private IEnumerable<IGalleryItem> images;
+        private List<LvEntity> images = null;
         SwipeRefreshLayout mSwipe;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -52,7 +53,15 @@ namespace Epicture
             navigationView.SetNavigationItemSelectedListener(this);
 
             _lv = FindViewById<ListView>(Resource.Id.lvGallery);
-            ThreadPool.QueueUserWorkItem(o => GetGalleryImagesAsync());
+
+            SearchView searchButton = FindViewById<SearchView>(Resource.Id.filterGallery);
+            searchButton.SetQueryHint("Enter your filter query");
+            searchButton.QueryTextChange += (sender, e) =>
+            {
+                ThreadPool.QueueUserWorkItem(o => GetGalleryImagesAsync(e.NewText));
+            };
+
+            ThreadPool.QueueUserWorkItem(o => GetGalleryImagesAsync(null));
         }
 
         private async void LoadUser()
@@ -70,11 +79,14 @@ namespace Epicture
             });
         }
 
-        private async Task GetGalleryImagesAsync()
+        private async Task GetGalleryImagesAsync(string query)
         {
             var endpoint = new GalleryEndpoint(new ImgurClient(Constants.appId));
-            images = await endpoint.GetGalleryAsync();
-            _adapter = new LvGalleryBinder(this, Resource.Layout.listview_model, images.ToList(), currentUser);
+            IEnumerable<IGalleryItem> images = await endpoint.GetGalleryAsync();
+            if (this.images != null)
+                this.images.Clear();
+            this.images = FilterClass<IGalleryItem>.convertList(query, images.ToList());
+            _adapter = new LvImgBinder(this, Resource.Layout.listview_model, this.images, currentUser);
             RunOnUiThread(() =>
             {
                 _lv.Adapter = _adapter;
@@ -84,7 +96,7 @@ namespace Epicture
 
         void mSwipe_Refresh(object sender, EventArgs e)
         {
-            ThreadPool.QueueUserWorkItem(o => GetGalleryImagesAsync());
+            ThreadPool.QueueUserWorkItem(o => GetGalleryImagesAsync(null));
             RunOnUiThread(() =>
             {
                 mSwipe.Refreshing = false;
@@ -93,8 +105,8 @@ namespace Epicture
 
         private void lv_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            GalleryFragmentActivity.images = this.images.ToList();
-            var activity = new Intent(this, typeof(GalleryFragmentActivity));
+            ImageFragmentActivity.images = this.images;
+            var activity = new Intent(this, typeof(ImageFragmentActivity));
             activity.PutExtra("position", e.Position);
             StartActivity(activity);
         }
@@ -115,14 +127,6 @@ namespace Epicture
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             return false;
-        }
-
-        private void FabOnClick(object sender, EventArgs eventArgs)
-        {
-            ThreadPool.QueueUserWorkItem(o => GetGalleryImagesAsync());
-            View view = (View)sender;
-            Snackbar.Make(view, "Updating gallery, please wait...", Snackbar.LengthLong)
-                .SetAction("Update", (View.IOnClickListener)null).Show();
         }
 
         public bool OnNavigationItemSelected(IMenuItem item)

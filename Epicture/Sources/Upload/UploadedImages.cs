@@ -31,7 +31,7 @@ namespace Epicture.Upload
         private LvImgBinder _adapter;
         private ListView _lv;
         public static readonly int UploadImageId = 2000;
-        private List<LvEntity> images;
+        private List<LvEntity> images = null;
         SwipeRefreshLayout mSwipe;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -64,7 +64,7 @@ namespace Epicture.Upload
             searchButton.SetQueryHint("Enter your filter query");
             searchButton.QueryTextChange += (sender, e) =>
             {
-                ThreadPool.QueueUserWorkItem(o => GetImagesAsync(0, searchButton.Query));
+                ThreadPool.QueueUserWorkItem(o => GetImagesAsync(0, e.NewText));
             };
 
             ThreadPool.QueueUserWorkItem(o => GetImagesAsync(0, null));
@@ -75,6 +75,8 @@ namespace Epicture.Upload
             await Task.Delay(delay);
             var endpoint = new AccountEndpoint(currentUser);
             IEnumerable<IImage> images = await endpoint.GetImagesAsync();
+            if (this.images != null)
+                this.images.Clear();
             this.images = FilterClass<IImage>.convertList(query, images.ToList());
             _adapter = new LvImgBinder(this, Resource.Layout.listview_model, this.images, currentUser);
             RunOnUiThread(() =>
@@ -147,7 +149,7 @@ namespace Epicture.Upload
 
         private void lv_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            //ImageFragmentActivity.images = this.images.ToList();
+            ImageFragmentActivity.images = this.images;
             var activity = new Intent(this, typeof(ImageFragmentActivity));
             activity.PutExtra("position", e.Position);
             StartActivity(activity);

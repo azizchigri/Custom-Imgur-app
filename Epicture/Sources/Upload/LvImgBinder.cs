@@ -55,13 +55,14 @@ namespace Epicture.Upload
                 holder.button.SetImageResource(Resource.Drawable.dislike);
             holder.button.Click += delegate
             {
-                var endpoint = new ImageEndpoint(client);
-                ThreadPool.QueueUserWorkItem(o => endpoint.FavoriteImageAsync(images[position].Id));
-                images[position].Favorite = !images[position].Favorite;
-                if (images[position].Favorite)
-                    holder.button.SetImageResource(Resource.Drawable.like);
+                if (images[position].type == LvEntity.ImgType.IMAGE)
+                {
+                    likeImage(position, holder);
+                }
                 else
-                    holder.button.SetImageResource(Resource.Drawable.dislike);
+                {
+                    likeAlbum(position, holder);
+                }
             };
             Glide
                 .With(this.c)
@@ -71,6 +72,28 @@ namespace Epicture.Upload
             convertView.SetBackgroundColor(Constants.lv_Background);
 
             return convertView;
+        }
+
+        void likeImage(int position, LvHolder holder)
+        {
+            var endpoint = new ImageEndpoint(client);
+            ThreadPool.QueueUserWorkItem(o => endpoint.FavoriteImageAsync(images[position].Id));
+            images[position].Favorite = !images[position].Favorite;
+            if (images[position].Favorite)
+                holder.button.SetImageResource(Resource.Drawable.like);
+            else
+                holder.button.SetImageResource(Resource.Drawable.dislike);
+        }
+
+        void likeAlbum(int position, LvHolder holder)
+        {
+            var endpoint = new AlbumEndpoint(client);
+            ThreadPool.QueueUserWorkItem(o => endpoint.FavoriteAlbumAsync(images[position].Id));
+            images[position].Favorite = !images[position].Favorite;
+            if (images[position].Favorite)
+                holder.button.SetImageResource(Resource.Drawable.like);
+            else
+                holder.button.SetImageResource(Resource.Drawable.dislike);
         }
     }
 }

@@ -7,12 +7,16 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main">
 
+	<SearchView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/filterGallery" />
 	<android.support.v4.widget.SwipeRefreshLayout 
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		android:id="@+id/swipe_refresh"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
-		android:layout_below="@+id/uploadText">
+		android:layout_below="@+id/filterGallery">
 		<ListView
 			android:minWidth="25px"
 			android:minHeight="25px"

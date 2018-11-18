@@ -2552,8 +2552,8 @@ namespace Epicture
 			// aapt resource value: 0x7f090037
 			public const int SYM = 2131296311;
 			
-			// aapt resource value: 0x7f0900ba
-			public const int action0 = 2131296442;
+			// aapt resource value: 0x7f0900bb
+			public const int action0 = 2131296443;
 			
 			// aapt resource value: 0x7f09007c
 			public const int action_bar = 2131296380;
@@ -2576,17 +2576,17 @@ namespace Epicture
 			// aapt resource value: 0x7f09005a
 			public const int action_bar_title = 2131296346;
 			
-			// aapt resource value: 0x7f0900b7
-			public const int action_container = 2131296439;
+			// aapt resource value: 0x7f0900b8
+			public const int action_container = 2131296440;
 			
 			// aapt resource value: 0x7f09007d
 			public const int action_context_bar = 2131296381;
 			
-			// aapt resource value: 0x7f0900be
-			public const int action_divider = 2131296446;
+			// aapt resource value: 0x7f0900bf
+			public const int action_divider = 2131296447;
 			
-			// aapt resource value: 0x7f0900b8
-			public const int action_image = 2131296440;
+			// aapt resource value: 0x7f0900b9
+			public const int action_image = 2131296441;
 			
 			// aapt resource value: 0x7f090003
 			public const int action_menu_divider = 2131296259;
@@ -2603,11 +2603,11 @@ namespace Epicture
 			// aapt resource value: 0x7f09005c
 			public const int action_mode_close_button = 2131296348;
 			
-			// aapt resource value: 0x7f0900b9
-			public const int action_text = 2131296441;
+			// aapt resource value: 0x7f0900ba
+			public const int action_text = 2131296442;
 			
-			// aapt resource value: 0x7f0900c7
-			public const int actions = 2131296455;
+			// aapt resource value: 0x7f0900c8
+			public const int actions = 2131296456;
 			
 			// aapt resource value: 0x7f09005d
 			public const int activity_chooser_view_content = 2131296349;
@@ -2645,8 +2645,8 @@ namespace Epicture
 			// aapt resource value: 0x7f090063
 			public const int buttonPanel = 2131296355;
 			
-			// aapt resource value: 0x7f0900bb
-			public const int cancel_action = 2131296443;
+			// aapt resource value: 0x7f0900bc
+			public const int cancel_action = 2131296444;
 			
 			// aapt resource value: 0x7f090045
 			public const int center = 2131296325;
@@ -2660,8 +2660,8 @@ namespace Epicture
 			// aapt resource value: 0x7f090073
 			public const int checkbox = 2131296371;
 			
-			// aapt resource value: 0x7f0900c3
-			public const int chronometer = 2131296451;
+			// aapt resource value: 0x7f0900c4
+			public const int chronometer = 2131296452;
 			
 			// aapt resource value: 0x7f09004e
 			public const int clip_horizontal = 2131296334;
@@ -2672,14 +2672,14 @@ namespace Epicture
 			// aapt resource value: 0x7f090039
 			public const int collapseActionView = 2131296313;
 			
-			// aapt resource value: 0x7f0900a4
-			public const int container = 2131296420;
+			// aapt resource value: 0x7f0900a5
+			public const int container = 2131296421;
 			
 			// aapt resource value: 0x7f090066
 			public const int contentPanel = 2131296358;
 			
-			// aapt resource value: 0x7f0900a5
-			public const int coordinator = 2131296421;
+			// aapt resource value: 0x7f0900a6
+			public const int coordinator = 2131296422;
 			
 			// aapt resource value: 0x7f09006d
 			public const int custom = 2131296365;
@@ -2693,20 +2693,20 @@ namespace Epicture
 			// aapt resource value: 0x7f090060
 			public const int default_activity_button = 2131296352;
 			
-			// aapt resource value: 0x7f0900a7
-			public const int design_bottom_sheet = 2131296423;
+			// aapt resource value: 0x7f0900a8
+			public const int design_bottom_sheet = 2131296424;
+			
+			// aapt resource value: 0x7f0900af
+			public const int design_menu_item_action_area = 2131296431;
 			
 			// aapt resource value: 0x7f0900ae
-			public const int design_menu_item_action_area = 2131296430;
+			public const int design_menu_item_action_area_stub = 2131296430;
 			
 			// aapt resource value: 0x7f0900ad
-			public const int design_menu_item_action_area_stub = 2131296429;
+			public const int design_menu_item_text = 2131296429;
 			
 			// aapt resource value: 0x7f0900ac
-			public const int design_menu_item_text = 2131296428;
-			
-			// aapt resource value: 0x7f0900ab
-			public const int design_navigation_view = 2131296427;
+			public const int design_navigation_view = 2131296428;
 			
 			// aapt resource value: 0x7f090020
 			public const int disableHome = 2131296288;
@@ -2720,8 +2720,8 @@ namespace Epicture
 			// aapt resource value: 0x7f090030
 			public const int end = 2131296304;
 			
-			// aapt resource value: 0x7f0900c9
-			public const int end_padder = 2131296457;
+			// aapt resource value: 0x7f0900ca
+			public const int end_padder = 2131296458;
 			
 			// aapt resource value: 0x7f09003f
 			public const int enterAlways = 2131296319;
@@ -2750,8 +2750,14 @@ namespace Epicture
 			// aapt resource value: 0x7f090048
 			public const int fill_vertical = 2131296328;
 			
-			// aapt resource value: 0x7f0900a0
-			public const int filterUpload = 2131296416;
+			// aapt resource value: 0x7f090097
+			public const int filterFavorite = 2131296407;
+			
+			// aapt resource value: 0x7f09009d
+			public const int filterGallery = 2131296413;
+			
+			// aapt resource value: 0x7f0900a1
+			public const int filterUpload = 2131296417;
 			
 			// aapt resource value: 0x7f090054
 			public const int @fixed = 2131296340;
@@ -2771,8 +2777,8 @@ namespace Epicture
 			// aapt resource value: 0x7f090062
 			public const int icon = 2131296354;
 			
-			// aapt resource value: 0x7f0900c8
-			public const int icon_group = 2131296456;
+			// aapt resource value: 0x7f0900c9
+			public const int icon_group = 2131296457;
 			
 			// aapt resource value: 0x7f09003a
 			public const int ifRoom = 2131296314;
@@ -2780,20 +2786,20 @@ namespace Epicture
 			// aapt resource value: 0x7f09005f
 			public const int image = 2131296351;
 			
+			// aapt resource value: 0x7f0900b5
+			public const int imageView = 2131296437;
+			
 			// aapt resource value: 0x7f0900b4
-			public const int imageView = 2131296436;
+			public const int imgTitle = 2131296436;
 			
-			// aapt resource value: 0x7f0900b3
-			public const int imgTitle = 2131296435;
-			
-			// aapt resource value: 0x7f0900b1
-			public const int imgurImg = 2131296433;
+			// aapt resource value: 0x7f0900b2
+			public const int imgurImg = 2131296434;
 			
 			// aapt resource value: 0x7f09008e
 			public const int imgvImageUpload = 2131296398;
 			
-			// aapt resource value: 0x7f0900c4
-			public const int info = 2131296452;
+			// aapt resource value: 0x7f0900c5
+			public const int info = 2131296453;
 			
 			// aapt resource value: 0x7f090059
 			public const int italic = 2131296345;
@@ -2801,14 +2807,14 @@ namespace Epicture
 			// aapt resource value: 0x7f090000
 			public const int item_touch_helper_previous_elevation = 2131296256;
 			
-			// aapt resource value: 0x7f0900a3
-			public const int largeLabel = 2131296419;
+			// aapt resource value: 0x7f0900a4
+			public const int largeLabel = 2131296420;
 			
 			// aapt resource value: 0x7f090049
 			public const int left = 2131296329;
 			
-			// aapt resource value: 0x7f0900b2
-			public const int likeButton = 2131296434;
+			// aapt resource value: 0x7f0900b3
+			public const int likeButton = 2131296435;
 			
 			// aapt resource value: 0x7f090017
 			public const int line1 = 2131296279;
@@ -2825,23 +2831,23 @@ namespace Epicture
 			// aapt resource value: 0x7f090099
 			public const int lvFavorite = 2131296409;
 			
-			// aapt resource value: 0x7f09009d
-			public const int lvGallery = 2131296413;
+			// aapt resource value: 0x7f09009e
+			public const int lvGallery = 2131296414;
 			
-			// aapt resource value: 0x7f09009f
-			public const int lvSearched = 2131296415;
+			// aapt resource value: 0x7f0900a0
+			public const int lvSearched = 2131296416;
 			
-			// aapt resource value: 0x7f0900a1
-			public const int lvUpload = 2131296417;
+			// aapt resource value: 0x7f0900a2
+			public const int lvUpload = 2131296418;
 			
-			// aapt resource value: 0x7f0900cc
-			public const int masked = 2131296460;
+			// aapt resource value: 0x7f0900cd
+			public const int masked = 2131296461;
 			
-			// aapt resource value: 0x7f0900bd
-			public const int media_actions = 2131296445;
+			// aapt resource value: 0x7f0900be
+			public const int media_actions = 2131296446;
 			
-			// aapt resource value: 0x7f0900ca
-			public const int message = 2131296458;
+			// aapt resource value: 0x7f0900cb
+			public const int message = 2131296459;
 			
 			// aapt resource value: 0x7f090031
 			public const int middle = 2131296305;
@@ -2852,26 +2858,26 @@ namespace Epicture
 			// aapt resource value: 0x7f090028
 			public const int multiply = 2131296296;
 			
+			// aapt resource value: 0x7f0900d2
+			public const int nav_disconnect = 2131296466;
+			
 			// aapt resource value: 0x7f0900d1
-			public const int nav_disconnect = 2131296465;
-			
-			// aapt resource value: 0x7f0900d0
-			public const int nav_favorites = 2131296464;
-			
-			// aapt resource value: 0x7f0900cd
-			public const int nav_gallery = 2131296461;
-			
-			// aapt resource value: 0x7f0900cf
-			public const int nav_search = 2131296463;
+			public const int nav_favorites = 2131296465;
 			
 			// aapt resource value: 0x7f0900ce
-			public const int nav_uploaded = 2131296462;
+			public const int nav_gallery = 2131296462;
+			
+			// aapt resource value: 0x7f0900d0
+			public const int nav_search = 2131296464;
+			
+			// aapt resource value: 0x7f0900cf
+			public const int nav_uploaded = 2131296463;
 			
 			// aapt resource value: 0x7f090093
 			public const int nav_view = 2131296403;
 			
-			// aapt resource value: 0x7f0900aa
-			public const int navigation_header_container = 2131296426;
+			// aapt resource value: 0x7f0900ab
+			public const int navigation_header_container = 2131296427;
 			
 			// aapt resource value: 0x7f09003b
 			public const int never = 2131296315;
@@ -2882,14 +2888,14 @@ namespace Epicture
 			// aapt resource value: 0x7f09001e
 			public const int normal = 2131296286;
 			
-			// aapt resource value: 0x7f0900c6
-			public const int notification_background = 2131296454;
+			// aapt resource value: 0x7f0900c7
+			public const int notification_background = 2131296455;
+			
+			// aapt resource value: 0x7f0900c1
+			public const int notification_main_column = 2131296449;
 			
 			// aapt resource value: 0x7f0900c0
-			public const int notification_main_column = 2131296448;
-			
-			// aapt resource value: 0x7f0900bf
-			public const int notification_main_column_container = 2131296447;
+			public const int notification_main_column_container = 2131296448;
 			
 			// aapt resource value: 0x7f09004c
 			public const int parallax = 2131296332;
@@ -2924,11 +2930,11 @@ namespace Epicture
 			// aapt resource value: 0x7f09004a
 			public const int right = 2131296330;
 			
-			// aapt resource value: 0x7f0900c5
-			public const int right_icon = 2131296453;
+			// aapt resource value: 0x7f0900c6
+			public const int right_icon = 2131296454;
 			
-			// aapt resource value: 0x7f0900c1
-			public const int right_side = 2131296449;
+			// aapt resource value: 0x7f0900c2
+			public const int right_side = 2131296450;
 			
 			// aapt resource value: 0x7f09000c
 			public const int save_image_matrix = 2131296268;
@@ -2957,8 +2963,8 @@ namespace Epicture
 			// aapt resource value: 0x7f090055
 			public const int scrollable = 2131296341;
 			
-			// aapt resource value: 0x7f09009e
-			public const int searchButton = 2131296414;
+			// aapt resource value: 0x7f09009f
+			public const int searchButton = 2131296415;
 			
 			// aapt resource value: 0x7f090080
 			public const int search_badge = 2131296384;
@@ -3005,14 +3011,14 @@ namespace Epicture
 			// aapt resource value: 0x7f090025
 			public const int showTitle = 2131296293;
 			
-			// aapt resource value: 0x7f0900a2
-			public const int smallLabel = 2131296418;
+			// aapt resource value: 0x7f0900a3
+			public const int smallLabel = 2131296419;
+			
+			// aapt resource value: 0x7f0900aa
+			public const int snackbar_action = 2131296426;
 			
 			// aapt resource value: 0x7f0900a9
-			public const int snackbar_action = 2131296425;
-			
-			// aapt resource value: 0x7f0900a8
-			public const int snackbar_text = 2131296424;
+			public const int snackbar_text = 2131296425;
 			
 			// aapt resource value: 0x7f090043
 			public const int snap = 2131296323;
@@ -3035,8 +3041,8 @@ namespace Epicture
 			// aapt resource value: 0x7f09004b
 			public const int start = 2131296331;
 			
-			// aapt resource value: 0x7f0900bc
-			public const int status_bar_latest_event_content = 2131296444;
+			// aapt resource value: 0x7f0900bd
+			public const int status_bar_latest_event_content = 2131296445;
 			
 			// aapt resource value: 0x7f090076
 			public const int submenuarrow = 2131296374;
@@ -3044,8 +3050,8 @@ namespace Epicture
 			// aapt resource value: 0x7f090087
 			public const int submit_area = 2131296391;
 			
-			// aapt resource value: 0x7f090097
-			public const int swipe_refresh = 2131296407;
+			// aapt resource value: 0x7f090098
+			public const int swipe_refresh = 2131296408;
 			
 			// aapt resource value: 0x7f09001f
 			public const int tabMode = 2131296287;
@@ -3065,8 +3071,8 @@ namespace Epicture
 			// aapt resource value: 0x7f090069
 			public const int textSpacerNoTitle = 2131296361;
 			
-			// aapt resource value: 0x7f0900af
-			public const int text_input_password_toggle = 2131296431;
+			// aapt resource value: 0x7f0900b0
+			public const int text_input_password_toggle = 2131296432;
 			
 			// aapt resource value: 0x7f090014
 			public const int textinput_counter = 2131296276;
@@ -3074,8 +3080,8 @@ namespace Epicture
 			// aapt resource value: 0x7f090015
 			public const int textinput_error = 2131296277;
 			
-			// aapt resource value: 0x7f0900c2
-			public const int time = 2131296450;
+			// aapt resource value: 0x7f0900c3
+			public const int time = 2131296451;
 			
 			// aapt resource value: 0x7f09001c
 			public const int title = 2131296284;
@@ -3095,8 +3101,8 @@ namespace Epicture
 			// aapt resource value: 0x7f09006e
 			public const int topPanel = 2131296366;
 			
-			// aapt resource value: 0x7f0900a6
-			public const int touch_outside = 2131296422;
+			// aapt resource value: 0x7f0900a7
+			public const int touch_outside = 2131296423;
 			
 			// aapt resource value: 0x7f09000f
 			public const int transition_current_scene = 2131296271;
@@ -3134,26 +3140,23 @@ namespace Epicture
 			// aapt resource value: 0x7f090009
 			public const int up = 2131296265;
 			
-			// aapt resource value: 0x7f090098
-			public const int uploadText = 2131296408;
-			
 			// aapt resource value: 0x7f090026
 			public const int useLogo = 2131296294;
 			
-			// aapt resource value: 0x7f0900b6
-			public const int userMail = 2131296438;
+			// aapt resource value: 0x7f0900b7
+			public const int userMail = 2131296439;
 			
-			// aapt resource value: 0x7f0900b5
-			public const int userName = 2131296437;
+			// aapt resource value: 0x7f0900b6
+			public const int userName = 2131296438;
 			
 			// aapt resource value: 0x7f090016
 			public const int view_offset_helper = 2131296278;
 			
-			// aapt resource value: 0x7f0900b0
-			public const int viewpager = 2131296432;
+			// aapt resource value: 0x7f0900b1
+			public const int viewpager = 2131296433;
 			
-			// aapt resource value: 0x7f0900cb
-			public const int visible = 2131296459;
+			// aapt resource value: 0x7f0900cc
+			public const int visible = 2131296460;
 			
 			// aapt resource value: 0x7f090094
 			public const int webview = 2131296404;

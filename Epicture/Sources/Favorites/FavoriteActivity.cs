@@ -18,6 +18,7 @@ using Android.Support.V4.Widget;
 using Android.Support.V4.View;
 using System;
 using System.Threading;
+using Epicture.Sources.Utils;
 
 namespace Epicture.Favorites
 {
@@ -25,9 +26,9 @@ namespace Epicture.Favorites
     public class FavoriteActivity : AppCompatActivity, NavigationView.IOnNavigationItemSelectedListener
     {
         private ImgurClient currentUser;
-        private LvGalleryBinder _adapter;
+        private LvImgBinder _adapter;
         private ListView _lv;
-        private IEnumerable<IGalleryItem> images;
+        private List<LvEntity> images = null;
         SwipeRefreshLayout mSwipe;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -53,14 +54,25 @@ namespace Epicture.Favorites
             navigationView.SetNavigationItemSelectedListener(this);
 
             _lv = FindViewById<ListView>(Resource.Id.lvFavorite);
-            ThreadPool.QueueUserWorkItem(o => GetFavoriteImagesAsync());
+
+            SearchView searchButton = FindViewById<SearchView>(Resource.Id.filterFavorite);
+            searchButton.SetQueryHint("Enter your filter query");
+            searchButton.QueryTextChange += (sender, e) =>
+            {
+                ThreadPool.QueueUserWorkItem(o => GetFavoriteImagesAsync(e.NewText));
+            };
+
+            ThreadPool.QueueUserWorkItem(o => GetFavoriteImagesAsync(null));
         }
 
-        private async Task GetFavoriteImagesAsync()
+        private async Task GetFavoriteImagesAsync(string query)
         {
             var endpoint = new AccountEndpoint(currentUser);
-            images = await endpoint.GetAccountFavoritesAsync();
-            _adapter = new LvGalleryBinder(this, Resource.Layout.listview_model, images.ToList(), currentUser);
+            IEnumerable<IGalleryItem> images = await endpoint.GetAccountFavoritesAsync();
+            if (this.images != null)
+                this.images.Clear();
+            this.images = FilterClass<IGalleryItem>.convertList(query, images.ToList());
+            _adapter = new LvImgBinder(this, Resource.Layout.listview_model, this.images, currentUser);
             RunOnUiThread(() =>
             {
                 _lv.Adapter = _adapter;
@@ -70,7 +82,7 @@ namespace Epicture.Favorites
 
         void mSwipe_Refresh(object sender, EventArgs e)
         {
-            ThreadPool.QueueUserWorkItem(o => GetFavoriteImagesAsync());
+            ThreadPool.QueueUserWorkItem(o => GetFavoriteImagesAsync(null));
             RunOnUiThread(() =>
             {
                 mSwipe.Refreshing = false;
@@ -114,8 +126,8 @@ namespace Epicture.Favorites
 
         private void lv_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            GalleryFragmentActivity.images = this.images.ToList();
-            var activity = new Intent(this, typeof(GalleryFragmentActivity));
+            ImageFragmentActivity.images = this.images;
+            var activity = new Intent(this, typeof(ImageFragmentActivity));
             activity.PutExtra("position", e.Position);
             StartActivity(activity);
         }
