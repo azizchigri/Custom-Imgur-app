@@ -7,9 +7,14 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_upload">
 
+	<SearchView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/filterUpload" />
 	<android.support.v4.widget.SwipeRefreshLayout 
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		android:id="@+id/swipe_refresh"
+		android:layout_below="@id/filterUpload"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent">
 		<ListView

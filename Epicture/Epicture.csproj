@@ -76,6 +76,7 @@
     <Compile Include="Sources\Upload\SendImageToUpload.cs" />
     <Compile Include="Sources\Upload\UploadActivity.cs" />
     <Compile Include="Sources\Upload\UploadedImages.cs" />
+    <Compile Include="Sources\Utils\FilterClass.cs" />
     <Compile Include="Sources\Utils\LvHolder.cs" />
   </ItemGroup>
   <ItemGroup>

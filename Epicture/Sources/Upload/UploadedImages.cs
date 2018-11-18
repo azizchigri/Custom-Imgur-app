@@ -20,6 +20,7 @@ using Epicture.Favorites;
 using System.Threading;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using Epicture.Sources.Utils;
 
 namespace Epicture.Upload
 {
@@ -30,7 +31,7 @@ namespace Epicture.Upload
         private LvImgBinder _adapter;
         private ListView _lv;
         public static readonly int UploadImageId = 2000;
-        private IEnumerable<IImage> images;
+        private List<LvEntity> images;
         SwipeRefreshLayout mSwipe;
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -58,15 +59,24 @@ namespace Epicture.Upload
             NavigationView navigationView = FindViewById<NavigationView>(Resource.Id.nav_view);
             navigationView.SetNavigationItemSelectedListener(this);
             _lv = FindViewById<ListView>(Resource.Id.lvUpload);
-            ThreadPool.QueueUserWorkItem(o => GetImagesAsync(0));
+
+            SearchView searchButton = FindViewById<SearchView>(Resource.Id.filterUpload);
+            searchButton.SetQueryHint("Enter your filter query");
+            searchButton.QueryTextChange += (sender, e) =>
+            {
+                ThreadPool.QueueUserWorkItem(o => GetImagesAsync(0, searchButton.Query));
+            };
+
+            ThreadPool.QueueUserWorkItem(o => GetImagesAsync(0, null));
         }
 
-        private async Task GetImagesAsync(int delay)
+        private async Task GetImagesAsync(int delay, string query)
         {
             await Task.Delay(delay);
             var endpoint = new AccountEndpoint(currentUser);
-            images = await endpoint.GetImagesAsync();
-            _adapter = new LvImgBinder(this, Resource.Layout.listview_model, images.ToList(), currentUser);
+            IEnumerable<IImage> images = await endpoint.GetImagesAsync();
+            this.images = FilterClass<IImage>.convertList(query, images.ToList());
+            _adapter = new LvImgBinder(this, Resource.Layout.listview_model, this.images, currentUser);
             RunOnUiThread(() =>
             {
                 _lv.Adapter = _adapter;
@@ -76,7 +86,7 @@ namespace Epicture.Upload
 
         void mSwipe_Refresh(object sender, EventArgs e)
         {
-            ThreadPool.QueueUserWorkItem(o => GetImagesAsync(0));
+            ThreadPool.QueueUserWorkItem(o => GetImagesAsync(0, null));
             RunOnUiThread(() =>
             {
                 mSwipe.Refreshing = false;
@@ -93,7 +103,7 @@ namespace Epicture.Upload
             if ((requestCode == UploadImageId) && (resultCode == Result.Ok))
             {
                 var updateDelay = 6000;
-                ThreadPool.QueueUserWorkItem(o => GetImagesAsync(updateDelay));
+                ThreadPool.QueueUserWorkItem(o => GetImagesAsync(updateDelay, null));
                 View view = this.CurrentFocus;
                 Snackbar.Make(view, "Updating images, please wait...", duration: updateDelay)
                     .SetAction("Update", (View.IOnClickListener)null).Show();
@@ -137,7 +147,7 @@ namespace Epicture.Upload
 
         private void lv_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            ImageFragmentActivity.images = this.images.ToList();
+            //ImageFragmentActivity.images = this.images.ToList();
             var activity = new Intent(this, typeof(ImageFragmentActivity));
             activity.PutExtra("position", e.Position);
             StartActivity(activity);
