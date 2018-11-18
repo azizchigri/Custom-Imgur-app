@@ -52,13 +52,13 @@ To run unit tests, you'll need to install the following software:
 
 ### Unit test notes
 * Unit tests can't login with OAuth2, so you'll have to authenticate first.
-* Unit tests can't choose picture to upload, so you'll have to tap on the image during this test
+* Unit tests can't choose picture to upload, so you'll have to tap on the image during this test.
 * Unit tests can't update by pull to refresh, so you may have errors on 'Like' and 'Dislike' tests.
 
 ## Authors
 
 * **Aziz Chigri** - [Linkedin](www.linkedin.com/in/aziz-chigri-198709140)
 
-See also the list of [contributors](https://github.com/azizchigri/DEV_dashboard_2018/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/azizchigri/Epicture/graphs/contributors) who participated in this project.
 
 
